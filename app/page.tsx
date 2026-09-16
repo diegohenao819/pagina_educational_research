@@ -1,98 +1,124 @@
+import Image from "next/image";
 import FolderLookup from "./folder-lookup";
 import FolderGuide from "./folder-guide";
 import { announcements, formatDate } from "@/content/announcements";
+import { IconArrowRight, IconExternal, IconInfo, IconMegaphone } from "./icons";
+
+const PRACTICE_FORM_URL = "https://forms.gle/zfNnoAdeMBbMUYiS7";
 
 export default function Home() {
   return (
-    <main className="shell">
-      <header>
-        <p className="eyebrow">UNAD · 518024</p>
-        <h1>Educational Research</h1>
-        <p className="lede">
-          Espacio del curso. Aquí encuentras el enlace a tu carpeta individual y los
-          anuncios que vaya publicando a lo largo del semestre.
+    <div className="page">
+      <header className="card app-header">
+        <Image
+          className="app-logo"
+          src="/logo-unad.png"
+          alt="Logo de la UNAD, Universidad Nacional Abierta y a Distancia, acreditada en alta calidad"
+          width={427}
+          height={302}
+          priority
+        />
+        <div className="app-heading">
+          <h1 className="app-title">Educational Research</h1>
+          <p className="app-subtitle">
+            Consulta tu carpeta de prácticas, revisa tu avance y descarga los formatos del curso.
+          </p>
+        </div>
+        <p className="course-id" aria-label="UNAD, curso 518024">
+          <span>UNAD</span>
+          <span>518024</span>
         </p>
       </header>
 
-      <aside className="callout" aria-labelledby="formulario-title">
-        <p className="callout-label">Antes de consultar tu carpeta</p>
-        <h2 className="callout-title" id="formulario-title">
-          Registra tu lugar de prácticas
-        </h2>
-        <p className="callout-text">
-          Completa el formulario con la información de tu institución de práctica,
-          especialmente los datos de contacto del docente titular que te acompañará.
-        </p>
-        <a
-          className="btn-open"
-          href="https://forms.gle/zfNnoAdeMBbMUYiS7"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Abrir formulario
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-            <path
-              d="M5.25 2.5h6.25v6.25M11.5 2.5 5.5 8.5"
-              stroke="currentColor"
-              strokeWidth="1.6"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <path
-              d="M9 9.5v2h-7v-7h2"
-              stroke="currentColor"
-              strokeWidth="1.6"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </a>
-      </aside>
+      <main>
+        <div className="workspace">
+          <div className="workspace-main">
+            <section className="notice" aria-labelledby="formulario-title">
+              <span className="notice-icon">
+                <IconInfo size={20} />
+              </span>
+              <div className="notice-body">
+                <h2 className="notice-title" id="formulario-title">
+                  Registra tu lugar de prácticas
+                </h2>
+                <p className="notice-text">
+                  Antes de consultar tu carpeta, completa el formulario con tu institución de
+                  práctica y los datos de contacto del docente titular que te acompañará.
+                </p>
+              </div>
+              <a
+                className="btn btn-secondary notice-action"
+                href={PRACTICE_FORM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Abrir formulario
+                <IconExternal size={16} />
+              </a>
+            </section>
 
-      <FolderLookup />
+            <FolderLookup />
+          </div>
 
-      <FolderGuide />
+          <aside className="workspace-side">
+            <section className="card feed" aria-labelledby="anuncios-title">
+              <h2 className="card-title" id="anuncios-title">
+                Anuncios
+              </h2>
 
-      <section className="section" aria-labelledby="anuncios-title">
-        <h2 className="section-title" id="anuncios-title">
-          Anuncios
-        </h2>
-
-        {announcements.length === 0 ? (
-          <p className="empty">Todavía no hay anuncios publicados.</p>
-        ) : (
-          announcements.map((post) => (
-            <article className="post" key={`${post.date}-${post.title}`}>
-              <p className="post-date">
-                <time dateTime={post.date}>{formatDate(post.date)}</time>
-              </p>
-              <h3 className="post-title">{post.title}</h3>
-              <p className="post-body">{post.body}</p>
-              {post.link && (
-                <a
-                  className="post-link"
-                  href={post.link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {post.link.label} →
-                </a>
+              {announcements.length === 0 ? (
+                <p className="feed-empty">Todavía no hay anuncios publicados.</p>
+              ) : (
+                <ol className="feed-list">
+                  {announcements.map((post) => (
+                    <li className="feed-item" key={`${post.date}-${post.title}`}>
+                      <article>
+                        <div className="feed-meta">
+                          <span className="feed-avatar">
+                            <IconMegaphone size={18} />
+                          </span>
+                          <div>
+                            <p className="feed-author">Tutor del curso</p>
+                            <p className="feed-date">
+                              <time dateTime={post.date}>{formatDate(post.date)}</time>
+                            </p>
+                          </div>
+                        </div>
+                        <h3 className="feed-title">{post.title}</h3>
+                        <p className="feed-body">{post.body}</p>
+                        {post.link && (
+                          <a
+                            className="link-action"
+                            href={post.link.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {post.link.label}
+                            <IconArrowRight size={16} />
+                          </a>
+                        )}
+                      </article>
+                    </li>
+                  ))}
+                </ol>
               )}
-            </article>
-          ))
-        )}
-      </section>
+            </section>
+          </aside>
+        </div>
 
-      <footer>
+        <FolderGuide />
+      </main>
+
+      <footer className="app-footer">
         <p>
-          Cada enlace es personal y se entrega únicamente al documento que le corresponde.
-          No compartas tu carpeta con otras personas.
+          Cada enlace es personal y se entrega únicamente al documento que le corresponde. No
+          compartas tu carpeta con otras personas.
         </p>
         <p>
-          ¿Tu documento no aparece o el enlace no abre? Escríbele al tutor del curso para
-          que lo revise.
+          ¿Tu documento no aparece o el enlace no abre? Escríbele al tutor del curso para que lo
+          revise.
         </p>
       </footer>
-    </main>
+    </div>
   );
 }

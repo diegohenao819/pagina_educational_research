@@ -6,6 +6,9 @@ import type { CSSProperties } from "react";
  * Todas se dibujan en su estado FINAL por defecto (así se ven sin JavaScript o
  * con movimiento reducido). La animación solo existe cuando `guide-motion.tsx`
  * marca la figura con data-motion="armed" / "play"; ver globals.css.
+ *
+ * Los textos de cada dibujo están medidos en Inter para que nunca queden por
+ * debajo de 12 px en pantalla, ni siquiera en un celular de 360 px.
  */
 
 const vars = (values: Record<string, string>) => values as CSSProperties;
@@ -52,7 +55,7 @@ function FolderShape({
 
 export function FolderIcon({ papers }: { papers: number }) {
   return (
-    <svg className="gt-icon" viewBox="-0.5 -0.5 37 29" aria-hidden="true">
+    <svg className="folder-icon" viewBox="-0.5 -0.5 37 29" aria-hidden="true">
       <FolderShape papers={papers} />
     </svg>
   );
@@ -60,61 +63,45 @@ export function FolderIcon({ papers }: { papers: number }) {
 
 export function DocIcon() {
   return (
-    <svg className="gd-icon" viewBox="0 0 16 20" aria-hidden="true">
+    <svg className="doc-icon" viewBox="0 0 16 20" aria-hidden="true">
       <path
-        className="gd-sheet"
+        className="doc-icon-sheet"
         d="M3 1h6.6L15 6.4V17a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2Z"
       />
-      <path className="gd-fold" d="M9.5 1.2v3.7a1.3 1.3 0 0 0 1.3 1.3h4" />
-      <path className="gd-lines" d="M4.6 10.2h6.6M4.6 13.6h6.6M4.6 6.8h2.6" />
+      <path className="doc-icon-line" d="M9.5 1.2v3.7a1.3 1.3 0 0 0 1.3 1.3h4" />
+      <path className="doc-icon-line" d="M4.6 10.2h6.6M4.6 13.6h6.6M4.6 6.8h2.6" />
     </svg>
   );
 }
 
-export function IconDownload() {
-  return (
-    <svg className="ic-down" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-      <path
-        d="M7 1.8v7.4M3.9 6.2 7 9.3l3.1-3.1M2.2 12.2h9.6"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-export function IconExternal() {
-  return (
-    <svg className="ic-out" width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-      <path
-        d="M5.25 2.5h6.25v6.25M11.5 2.5 5.5 8.5M9 9.5v2h-7v-7h2"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-/* ────────── mapa: tu carpeta → subcarpetas ────────── */
+/* ────────── mapa: tu carpeta y sus subcarpetas ────────── */
 
 type MapFolder = { id: string; name: string; count: number };
 
+/**
+ * "Tu carpeta" es una carpeta grande con pestaña; las subcarpetas van dentro.
+ * Sin líneas de conexión: la contención la dice la propia silueta.
+ * 300 unidades de ancho: el rótulo más largo ("Documentos administrativos",
+ * 187 px en Inter 13.5) termina en 249.
+ */
 export function FolderMap({ folders }: { folders: MapFolder[] }) {
-  const W = 344;
-  const GAP = 58;
-  const rows = folders.map((_, i) => 36 + i * GAP);
-  const H = rows[rows.length - 1] + 36;
-  const rootY = (rows[0] + rows[rows.length - 1]) / 2;
+  const W = 300;
+  const BODY_TOP = 28;
+  const FIRST_ROW = 66;
+  const GAP = 48;
+  const rows = folders.map((_, i) => FIRST_ROW + i * GAP);
+  const H = rows[rows.length - 1] + 30;
 
-  // Coreografía: la carpeta raíz aparece, las ramas se dibujan hacia afuera
-  // y cada subcarpeta recibe sus hojas cuando la rama llega.
-  const branchAt = (i: number) => 200 + i * 90;
-  const rowAt = (i: number) => branchAt(i) + 360;
-  const paperAt = (i: number, k: number) => rowAt(i) + 170 + k * 70;
+  // Silueta de carpeta: pestaña arriba a la izquierda y cuerpo redondeado
+  const shell =
+    `M0 12A12 12 0 0 1 12 0H116Q124 0 128 8L134 20Q138 ${BODY_TOP} 146 ${BODY_TOP}` +
+    `H288A12 12 0 0 1 ${W} ${BODY_TOP + 12}V${H - 12}A12 12 0 0 1 288 ${H}` +
+    `H12A12 12 0 0 1 0 ${H - 12}Z`;
+
+  // Coreografía: la carpeta se abre y las subcarpetas entran una a una,
+  // cada una recibiendo sus hojas al llegar.
+  const rowAt = (i: number) => 280 + i * 120;
+  const paperAt = (i: number, k: number) => rowAt(i) + 180 + k * 70;
 
   return (
     <svg
@@ -123,36 +110,17 @@ export function FolderMap({ folders }: { folders: MapFolder[] }) {
       role="group"
       aria-label={`Tu carpeta tiene ${folders.length} subcarpetas`}
     >
-      <g aria-hidden="true">
-        <g transform={`translate(12 ${rootY - 20.4}) scale(1.46)`}>
-          <g className="gm-root">
-            <FolderShape papers={3} root paperDelay={(k) => 90 + k * 60} />
-          </g>
+      <g className="gm-shell" aria-hidden="true">
+        <path className="gm-shell-bg" d={shell} />
+        <g transform="translate(12 8) scale(0.5)">
+          <FolderShape papers={2} root />
         </g>
-        <text className="gm-root-label" x="38" y={rootY + 38} textAnchor="middle">
+        <text className="gm-root-label" x="36" y="19">
           Tu carpeta
         </text>
-        <text className="gm-root-sub" x="38" y={rootY + 53} textAnchor="middle">
+        <text className="gm-root-sub" x="152" y="19">
           {folders.length} subcarpetas
         </text>
-
-        {rows.map((y, i) => (
-          <g key={`branch-${i}`}>
-            <path
-              className="gm-branch"
-              pathLength={1}
-              d={`M66 ${rootY}C90 ${rootY} 84 ${y} 106 ${y}`}
-              style={vars({ "--d": ms(branchAt(i)) })}
-            />
-            <circle
-              className="gm-dot"
-              cx="106"
-              cy={y}
-              r="2.4"
-              style={vars({ "--d": ms(branchAt(i) + 420) })}
-            />
-          </g>
-        ))}
       </g>
 
       {folders.map((folder, i) => {
@@ -164,15 +132,15 @@ export function FolderMap({ folders }: { folders: MapFolder[] }) {
             href={`#${folder.id}`}
             aria-label={`${folder.name}: ${plural(folder.count)}`}
           >
-            <rect className="gm-hit" x="98" y={y - 25} width={W - 100} height="50" rx="12" />
+            <rect className="gm-hit" x="8" y={y - 21} width={W - 16} height="42" rx="10" />
             <g className="gm-row" style={vars({ "--d": ms(rowAt(i)) })} aria-hidden="true">
-              <g transform={`translate(114 ${y - 14})`}>
+              <g transform={`translate(18 ${y - 14})`}>
                 <FolderShape papers={folder.count} paperDelay={(k) => paperAt(i, k)} />
               </g>
-              <text className="gm-name" x="160" y={y - 1.5}>
+              <text className="gm-name" x="64" y={y - 1.5}>
                 {folder.name}
               </text>
-              <text className="gm-count" x="160" y={y + 13.5}>
+              <text className="gm-count" x="64" y={y + 14}>
                 {plural(folder.count)}
               </text>
             </g>
@@ -185,13 +153,18 @@ export function FolderMap({ folders }: { folders: MapFolder[] }) {
 
 /* ────────── 12 + 12 = 24 horas ────────── */
 
+/**
+ * Las horas cumplidas van en verde (el color de "cumplido" de toda la página):
+ * Fase 2 en verde sólido y Fase 3 en verde rayado, para que se distingan por
+ * textura y no solo por tono. Lo pendiente va en ámbar, como en el checklist.
+ */
 export function HoursArt({ firstPhase = 9 }: { firstPhase?: number }) {
   const TOTAL = 24;
   const HALF = 12;
-  const x0 = 8;
-  const step = 12;
-  const cw = 9.5;
-  const cy = 26;
+  const x0 = 6;
+  const step = 11;
+  const cw = 8.8;
+  const cy = 24;
   const ch = 20;
   const cellX = (i: number) => x0 + i * step + (i >= HALF ? 5 : 0);
   const boundary = (cellX(HALF - 1) + cw + cellX(HALF)) / 2;
@@ -200,22 +173,43 @@ export function HoursArt({ firstPhase = 9 }: { firstPhase?: number }) {
   const carryFrom = cellX(firstPhase);
   const carryTo = cellX(HALF - 1) + cw;
 
-  // Fase 2 llena sus horas → se marcan las que faltan → Fase 3 completa el resto
+  // Fase 2 llena sus horas, se marcan las que faltan y Fase 3 completa el resto
   const fillAt = (i: number) =>
     i < firstPhase ? 100 + i * 130 : 2100 + (i - firstPhase) * 60;
 
   return (
-    <svg viewBox="0 0 306 98" aria-hidden="true">
-      <text className="h-axis" x={x0} y="15">
+    <svg viewBox="0 0 280 96" aria-hidden="true">
+      <defs>
+        <pattern
+          id="guide-hours-hatch"
+          width="4"
+          height="4"
+          patternUnits="userSpaceOnUse"
+          patternTransform="rotate(45)"
+        >
+          <rect className="h-hatch-bg" width="4" height="4" />
+          <rect className="h-hatch-line" width="1.7" height="4" />
+        </pattern>
+      </defs>
+
+      <text className="h-axis" x={x0} y="13">
         0 h
       </text>
-      <text className="h-axis" x={boundary} y="15" textAnchor="middle">
+      <text className="h-axis" x={boundary} y="13" textAnchor="middle">
         12 h
       </text>
-      <text className="h-axis" x={end} y="15" textAnchor="end">
+      <text className="h-axis" x={end} y="13" textAnchor="end">
         24 h
       </text>
-      <path className="h-tick" d={`M${boundary} 19.5V50`} />
+      <path className="h-tick" d={`M${boundary} 17.5V48`} />
+
+      <g className="h-total">
+        <circle className="ok-disc" cx={end - 36} cy="8.6" r="6" />
+        <path
+          className="ok-tick"
+          d={`M${end - 38.8} 8.8l1.9 1.9 3.6-3.8`}
+        />
+      </g>
 
       {Array.from({ length: TOTAL }, (_, i) => {
         const isGap = i >= firstPhase && i < HALF;
@@ -227,7 +221,7 @@ export function HoursArt({ firstPhase = 9 }: { firstPhase?: number }) {
               y={cy}
               width={cw}
               height={ch}
-              rx="2.5"
+              rx="2.2"
               style={isGap ? vars({ "--d": ms(1400 + (i - firstPhase) * 90) }) : undefined}
             />
             <rect
@@ -236,7 +230,7 @@ export function HoursArt({ firstPhase = 9 }: { firstPhase?: number }) {
               y={cy}
               width={cw}
               height={ch}
-              rx="2.5"
+              rx="2.2"
               style={vars({ "--d": ms(fillAt(i)) })}
             />
           </g>
@@ -245,29 +239,21 @@ export function HoursArt({ firstPhase = 9 }: { firstPhase?: number }) {
 
       {missing > 0 && (
         <g className="h-carry">
-          <path className="h-bracket" d={`M${carryFrom} 50.5v3.5h${carryTo - carryFrom}v-3.5`} />
-          <text className="h-note" x={(carryFrom + carryTo) / 2} y="66" textAnchor="middle">
+          <path className="h-bracket" d={`M${carryFrom} 48.5v3.5h${carryTo - carryFrom}v-3.5`} />
+          <text className="h-note" x={(carryFrom + carryTo) / 2} y="67" textAnchor="middle">
             {missing} h pasan a la Fase 3
           </text>
         </g>
       )}
 
-      <rect className="h-swatch is-f2" x={x0} y="80.5" width="9" height="9" rx="2" />
-      <text className="h-legend" x={x0 + 14} y="88.6">
-        Fase 2 · {firstPhase} h
+      <rect className="h-swatch is-f2" x={x0} y="78" width="10" height="10" rx="2" />
+      <text className="h-legend" x={x0 + 15} y="87.5">
+        Fase 2: {firstPhase} h
       </text>
-      <rect className="h-swatch is-f3" x="100" y="80.5" width="9" height="9" rx="2" />
-      <text className="h-legend" x="114" y="88.6">
-        Fase 3 · {TOTAL - firstPhase} h
+      <rect className="h-swatch is-f3" x="108" y="78" width="10" height="10" rx="2" />
+      <text className="h-legend" x="123" y="87.5">
+        Fase 3: {TOTAL - firstPhase} h
       </text>
-
-      <g className="h-total">
-        <circle className="ok-disc" cx="224" cy="85" r="6.5" />
-        <path className="ok-tick" d="M221 85.2l2.1 2.1 3.9-4.1" />
-        <text className="h-legend is-strong" x="235" y="88.6">
-          Total 24 h
-        </text>
-      </g>
     </svg>
   );
 }
@@ -397,10 +383,10 @@ export function ArlArt() {
       <rect className="ga-bar" x="15" y="41" width="72" height="4" rx="2" />
       <rect className="ga-bar" x="15" y="49" width="52" height="4" rx="2" />
 
-      <rect className="arl-pill" x="15" y="59" width="60" height="15" rx="7.5" />
-      <circle className="arl-ring" cx="24" cy="66.5" r="5.5" />
-      <circle className="arl-dot" cx="24" cy="66.5" r="3" />
-      <text className="arl-text" x="31.5" y="70.2">
+      <rect className="arl-pill" x="15" y="58" width="64" height="17" rx="8.5" />
+      <circle className="arl-ring" cx="24.5" cy="66.5" r="5.5" />
+      <circle className="arl-dot" cx="24.5" cy="66.5" r="3" />
+      <text className="arl-text" x="32" y="70.8">
         Activa
       </text>
     </svg>
@@ -420,15 +406,15 @@ export function PublicLinkArt() {
       </g>
       <rect className="ga-bar" x="37" y="19.5" width="62" height="4" rx="2" />
 
-      <circle className="pl-globe-bg" cx="26" cy="55" r="11" />
-      <g transform="translate(19.4 48.4) scale(0.55)" className="pl-globe">
+      <circle className="pl-globe-bg" cx="25" cy="55" r="10.5" />
+      <g transform="translate(18.4 48.4) scale(0.55)" className="pl-globe">
         <circle cx="12" cy="12" r="10" />
         <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20M2 12h20" />
       </g>
-      <text className="pl-strong" x="44" y="52.5">
+      <text className="pl-strong" x="41" y="52">
         Público
       </text>
-      <text className="pl-soft" x="44" y="65.5">
+      <text className="pl-soft" x="41" y="66">
         con el enlace
       </text>
     </svg>

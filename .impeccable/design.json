@@ -1,0 +1,174 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-16T00:00:00Z",
+  "title": "Design System: Educational Research UNAD",
+  "extensions": {
+    "colorMeta": {
+      "accent": { "role": "primary", "displayName": "UNAD Burnt Orange", "canonical": "#b5450c", "tonalRamp": ["#3a1603", "#5c2306", "#823108", "#b5450c", "#d9692e", "#f0a577", "#fde6d5", "#fff4ec"] },
+      "accent-soft": { "role": "primary", "displayName": "Orange Wash", "canonical": "#fff4ec", "tonalRamp": ["#5c2306", "#823108", "#b5450c", "#d9692e", "#f5d0b8", "#fde6d5", "#fff4ec", "#fffaf6"] },
+      "accent-text": { "role": "primary", "displayName": "Orange Ink", "canonical": "#a13d0a", "tonalRamp": ["#3a1603", "#5c2306", "#823108", "#a13d0a", "#cf5a1c", "#f0a577", "#fde6d5", "#fff4ec"] },
+      "accent-muted-text": { "role": "primary", "displayName": "Clay Brown", "canonical": "#6e4b36", "tonalRamp": ["#241810", "#3d2a1e", "#56392a", "#6e4b36", "#94705a", "#bc9d8a", "#e0cfc4", "#f6efea"] },
+      "success": { "role": "secondary", "displayName": "Field Green", "canonical": "#1d6b42", "tonalRamp": ["#0a2616", "#12432a", "#1d6b42", "#2c8a55", "#5fae82", "#c3e4cf", "#dcefe3", "#edf7f0"] },
+      "notice": { "role": "secondary", "displayName": "Harvest Amber", "canonical": "#7a4b00", "tonalRamp": ["#2b1a00", "#4f3100", "#7a4b00", "#a86d05", "#c98a0e", "#f3dca6", "#fff1cf", "#fff8e8"] },
+      "danger": { "role": "secondary", "displayName": "Alert Red", "canonical": "#b42318", "tonalRamp": ["#3d0b07", "#6a140e", "#b42318", "#d9453a", "#ee8a82", "#f9cdc8", "#fde4e1", "#fef3f2"] },
+      "folder-front": { "role": "tertiary", "displayName": "Manila Folder", "canonical": "#f2c056", "tonalRamp": ["#3d2a05", "#6b4a0c", "#a36f14", "#d99a28", "#f2c056", "#f7d78e", "#fbe9c2", "#fdf6e6"] },
+      "folder-front-root": { "role": "tertiary", "displayName": "Root Folder Orange", "canonical": "#cf5a1c", "tonalRamp": ["#3a1603", "#5c2306", "#9c3b0a", "#cf5a1c", "#e5824b", "#f0a577", "#fde6d5", "#fff4ec"] },
+      "ink": { "role": "tertiary", "displayName": "Signature Blue", "canonical": "#2f55a4", "tonalRamp": ["#0e1a33", "#1a3063", "#2f55a4", "#4c73c2", "#7d9bd6", "#b1c3e8", "#dae3f5", "#eef2fb"] },
+      "canvas": { "role": "neutral", "displayName": "Classroom Gray", "canonical": "#f0f2f5", "tonalRamp": ["#1c1e21", "#4b4f56", "#65676b", "#8a8d91", "#bcc0c4", "#ced0d4", "#e4e6eb", "#f0f2f5"] },
+      "surface": { "role": "neutral", "displayName": "Card White", "canonical": "#ffffff", "tonalRamp": ["#1c1e21", "#4b4f56", "#65676b", "#8a8d91", "#ced0d4", "#e4e6eb", "#f7f8fa", "#ffffff"] },
+      "surface-muted": { "role": "neutral", "displayName": "Mist", "canonical": "#f7f8fa", "tonalRamp": ["#1c1e21", "#4b4f56", "#65676b", "#8a8d91", "#ced0d4", "#e4e6eb", "#f0f2f5", "#f7f8fa"] },
+      "border": { "role": "neutral", "displayName": "Hairline", "canonical": "#e4e6eb", "tonalRamp": ["#1c1e21", "#4b4f56", "#65676b", "#8a8d91", "#bcc0c4", "#ced0d4", "#e4e6eb", "#f0f2f5"] },
+      "border-strong": { "role": "neutral", "displayName": "Rule Gray", "canonical": "#ced0d4", "tonalRamp": ["#1c1e21", "#4b4f56", "#65676b", "#8a8d91", "#bcc0c4", "#ced0d4", "#e4e6eb", "#f0f2f5"] },
+      "text": { "role": "neutral", "displayName": "Ink Black", "canonical": "#1c1e21", "tonalRamp": ["#1c1e21", "#35383d", "#4b4f56", "#65676b", "#8a8d91", "#bcc0c4", "#e4e6eb", "#f0f2f5"] },
+      "text-secondary": { "role": "neutral", "displayName": "Slate", "canonical": "#65676b", "tonalRamp": ["#1c1e21", "#35383d", "#4b4f56", "#65676b", "#8a8d91", "#bcc0c4", "#e4e6eb", "#f0f2f5"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "The page title in the header only. 26px on mobile, 32px from 720px." },
+      "headline": { "displayName": "Headline", "purpose": "Section titles. The lookup title grows to 24px from 640px." },
+      "title": { "displayName": "Title", "purpose": "Card and phase-card titles." },
+      "subtitle": { "displayName": "Subtitle", "purpose": "Notice, alert, found, feed-item and document titles." },
+      "body": { "displayName": "Body", "purpose": "Ledes, notes, feed text and checklist items. The page base is 16px at 1.5." },
+      "label": { "displayName": "Label", "purpose": "Field labels and phase names. Buttons use 15px at 600." },
+      "caption": { "displayName": "Caption", "purpose": "Hints, dates, counts, the footer and the map caption." },
+      "badge": { "displayName": "Badge", "purpose": "Pill badges. 12px is also the floor for text inside SVG illustrations." }
+    },
+    "shadows": [
+      { "name": "shadow-card", "value": "0 1px 2px rgb(16 24 40 / 0.04), 0 1px 3px rgb(16 24 40 / 0.03)", "purpose": "Every card at rest." },
+      { "name": "shadow-raised", "value": "0 1px 2px rgb(16 24 40 / 0.05), 0 6px 16px -4px rgb(16 24 40 / 0.07)", "purpose": "The lookup card only, the primary task." },
+      { "name": "focus-ring", "value": "0 0 0 3px rgb(181 69 12 / 0.26)", "purpose": "Focused input. Other controls use a 2px orange outline offset 2px." },
+      { "name": "target-halo", "value": "0 0 0 3px #fde6d5", "purpose": "Brief highlight, with an orange border, on a phase card reached from the folder map." }
+    ],
+    "motion": [
+      { "name": "ease-out", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Default easing for arrivals, the progress bar and illustration motion." },
+      { "name": "state-transition", "value": "0.15s ease", "purpose": "Color, border and shadow changes on buttons, inputs and map rows." },
+      { "name": "arrive", "value": "0.3s to 0.4s, from opacity 0 and translateY(6px)", "purpose": "Lookup alerts, the found panel and the progress card appearing." },
+      { "name": "bar-grow", "value": "0.8s ease-out, 0.15s delay, scaleX from 0", "purpose": "Progress bar fill." },
+      { "name": "folder-open", "value": "0.28s ease-out, front flap scaleY(0.82)", "purpose": "Folder opens when a map row is hovered or focused." },
+      { "name": "illustration-once", "value": "data-motion armed then play, on viewport entry", "purpose": "Guide illustrations play once from their first frame; HTML ships in the final state; reduced motion swaps to opacity fades." },
+      { "name": "signature-draw", "value": "1.25s cubic-bezier(0.45, 0.05, 0.35, 1)", "purpose": "Pen strokes drawing in the attendance illustration." }
+    ],
+    "breakpoints": [
+      { "name": "row", "value": "560px" },
+      { "name": "checklist-columns", "value": "600px" },
+      { "name": "card-padding", "value": "640px" },
+      { "name": "header", "value": "720px" },
+      { "name": "page-padding", "value": "768px" },
+      { "name": "workspace", "value": "960px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The main action, such as the folder lookup. Orange, used once per task area.",
+      "html": "<button class=\"ds-btn ds-btn-primary\">Ver mi carpeta</button>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 40px; padding: 0 16px; border: 1px solid transparent; border-radius: var(--radius-control, 10px); font-family: Inter, system-ui, sans-serif; font-size: 15px; font-weight: 600; line-height: 1.2; cursor: pointer; transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease; } .ds-btn-primary { background: var(--accent, #b5450c); color: #ffffff; } .ds-btn-primary:hover { background: var(--accent-hover, #9c3b0a); } .ds-btn-primary:active { background: var(--accent-active, #823108); } .ds-btn:focus-visible { outline: 2px solid var(--accent, #b5450c); outline-offset: 2px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Downloads and external links, with a trailing 16px icon.",
+      "html": "<a class=\"ds-btn-secondary\" href=\"#\">Descargar formato <svg width=\"16\" height=\"16\" viewBox=\"0 0 20 20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M10 3.5v9M6 9l4 4 4-4M4 16.5h12\"/></svg></a>",
+      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 16px; border: 1px solid var(--border-strong, #ced0d4); border-radius: var(--radius-control, 10px); background: var(--surface, #ffffff); color: var(--text, #1c1e21); font-family: Inter, system-ui, sans-serif; font-size: 15px; font-weight: 600; text-decoration: none; transition: background-color 0.15s ease, border-color 0.15s ease; } .ds-btn-secondary:hover { background: var(--surface-muted, #f7f8fa); border-color: var(--border-hover, #bcc0c4); } .ds-btn-secondary:active { background: var(--surface-sunken, #f0f2f5); } .ds-btn-secondary:focus-visible { outline: 2px solid var(--accent, #b5450c); outline-offset: 2px; }"
+    },
+    {
+      "name": "Tertiary Button",
+      "kind": "button",
+      "refersTo": "button-tertiary",
+      "description": "Low-emphasis actions next to a primary, such as clearing a search.",
+      "html": "<button class=\"ds-btn-tertiary\">Nueva consulta</button>",
+      "css": ".ds-btn-tertiary { display: inline-flex; align-items: center; min-height: 40px; padding: 0 12px; border: 1px solid transparent; border-radius: var(--radius-control, 10px); background: transparent; color: var(--text-secondary, #65676b); font-family: Inter, system-ui, sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; transition: background-color 0.15s ease, color 0.15s ease; } .ds-btn-tertiary:hover { background: var(--surface-sunken, #f0f2f5); color: var(--text, #1c1e21); } .ds-btn-tertiary:focus-visible { outline: 2px solid var(--accent, #b5450c); outline-offset: 2px; }"
+    },
+    {
+      "name": "Document Input",
+      "kind": "input",
+      "refersTo": "input-document",
+      "description": "The 48px lookup field with a leading search icon and tabular digits.",
+      "html": "<div class=\"ds-input-wrap\"><svg class=\"ds-input-icon\" width=\"18\" height=\"18\" viewBox=\"0 0 20 20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" aria-hidden=\"true\"><circle cx=\"9\" cy=\"9\" r=\"5.5\"/><path d=\"M13 13l3.5 3.5\"/></svg><input class=\"ds-input\" inputmode=\"numeric\" placeholder=\"1234567890\" aria-label=\"Número de documento\"></div>",
+      "css": ".ds-input-wrap { position: relative; max-width: 360px; } .ds-input-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-secondary, #65676b); pointer-events: none; } .ds-input { width: 100%; height: 48px; padding: 0 16px 0 44px; border: 1px solid var(--border-strong, #ced0d4); border-radius: var(--radius-control, 10px); background: var(--surface, #ffffff); color: var(--text, #1c1e21); caret-color: var(--accent, #b5450c); font-family: Inter, system-ui, sans-serif; font-size: 17px; letter-spacing: 0.03em; font-variant-numeric: tabular-nums; transition: border-color 0.15s ease, box-shadow 0.15s ease; } .ds-input::placeholder { color: var(--text-placeholder, #6f737a); } .ds-input:hover { border-color: var(--border-hover, #bcc0c4); } .ds-input:focus-visible { outline: none; border-color: var(--accent, #b5450c); box-shadow: 0 0 0 3px rgb(181 69 12 / 0.26); }"
+    },
+    {
+      "name": "Badges",
+      "kind": "chip",
+      "refersTo": "badge",
+      "description": "Sentence-case pills: Requisito (rule), Recomendación (tip), neutral.",
+      "html": "<span class=\"ds-badge ds-badge-rule\">Requisito</span> <span class=\"ds-badge ds-badge-tip\">Recomendación</span> <span class=\"ds-badge\">2 documentos</span>",
+      "css": ".ds-badge { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 999px; background: var(--surface-sunken, #f0f2f5); color: #4b4f56; font-family: Inter, system-ui, sans-serif; font-size: 12px; font-weight: 600; line-height: 1.5; white-space: nowrap; } .ds-badge-rule { background: var(--accent-soft-strong, #fde6d5); color: var(--accent-text, #a13d0a); } .ds-badge-tip { background: var(--success-badge, #dcefe3); color: var(--success, #1d6b42); }"
+    },
+    {
+      "name": "Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "The quiet white container on the gray canvas.",
+      "html": "<section class=\"ds-card\"><h2 class=\"ds-card-title\">Anuncios</h2><p class=\"ds-card-lede\">Todavía no hay anuncios publicados.</p></section>",
+      "css": ".ds-card { background: var(--surface, #ffffff); border: 1px solid var(--border, #e4e6eb); border-radius: var(--radius-card, 12px); box-shadow: 0 1px 2px rgb(16 24 40 / 0.04), 0 1px 3px rgb(16 24 40 / 0.03); padding: 24px; font-family: Inter, system-ui, sans-serif; color: var(--text, #1c1e21); } .ds-card-title { margin: 0; font-size: 18px; font-weight: 700; line-height: 1.3; letter-spacing: -0.01em; } .ds-card-lede { margin: 6px 0 0; font-size: 15px; line-height: 1.55; color: var(--text-secondary, #65676b); }"
+    },
+    {
+      "name": "Form Notice",
+      "kind": "custom",
+      "refersTo": "notice",
+      "description": "Pale orange notice with an info icon and an orange-bordered secondary action.",
+      "html": "<section class=\"ds-notice\"><svg class=\"ds-notice-icon\" width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" aria-hidden=\"true\"><circle cx=\"10\" cy=\"10\" r=\"7.25\"/><path d=\"M10 9.2v4.4\"/><circle cx=\"10\" cy=\"6.5\" r=\"0.95\" fill=\"currentColor\" stroke=\"none\"/></svg><div><h2 class=\"ds-notice-title\">Registra tu lugar de prácticas</h2><p class=\"ds-notice-text\">Completa el formulario antes de consultar tu carpeta.</p></div><a class=\"ds-notice-action\" href=\"#\">Abrir formulario</a></section>",
+      "css": ".ds-notice { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; column-gap: 16px; align-items: center; padding: 16px 20px; border-radius: 12px; background: var(--accent-soft, #fff4ec); border: 1px solid var(--accent-border, #f5d0b8); font-family: Inter, system-ui, sans-serif; } .ds-notice-icon { align-self: start; margin-top: 1px; color: var(--accent, #b5450c); } .ds-notice-title { margin: 0; font-size: 16px; font-weight: 600; line-height: 1.35; color: var(--text, #1c1e21); } .ds-notice-text { margin: 4px 0 0; font-size: 14px; line-height: 1.5; color: var(--accent-muted-text, #6e4b36); } .ds-notice-action { display: inline-flex; align-items: center; min-height: 40px; padding: 0 16px; border: 1px solid var(--accent-border, #f5d0b8); border-radius: 10px; background: var(--surface, #ffffff); color: var(--accent-text, #a13d0a); font-size: 15px; font-weight: 600; text-decoration: none; transition: border-color 0.15s ease, color 0.15s ease; } .ds-notice-action:hover { border-color: var(--accent, #b5450c); color: var(--accent-hover, #9c3b0a); } .ds-notice-action:focus-visible { outline: 2px solid var(--accent, #b5450c); outline-offset: 2px; }"
+    },
+    {
+      "name": "Progress and Checklist",
+      "kind": "custom",
+      "refersTo": "progress-bar",
+      "description": "Tabular percentage, 8px pill bar, and checklist marks that read without color.",
+      "html": "<div class=\"ds-progress\"><div class=\"ds-progress-head\"><span class=\"ds-progress-count\"><strong>5</strong> de 9 ítems</span><span class=\"ds-progress-pct\">56 %</span></div><div class=\"ds-bar\"><span class=\"ds-bar-fill\" style=\"width:56%\"></span></div><ul class=\"ds-checks\"><li class=\"ds-check is-done\"><span class=\"ds-mark\"></span>Carta de presentación</li><li class=\"ds-check is-note\"><span class=\"ds-mark\"></span>Asistencia</li><li class=\"ds-check\"><span class=\"ds-mark\"></span>Plan de trabajo</li></ul></div>",
+      "css": ".ds-progress { font-family: Inter, system-ui, sans-serif; color: var(--text, #1c1e21); max-width: 360px; } .ds-progress-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; } .ds-progress-count { font-size: 15px; color: var(--text-secondary, #65676b); font-variant-numeric: tabular-nums; } .ds-progress-count strong { color: var(--text, #1c1e21); } .ds-progress-pct { font-size: 24px; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; } .ds-bar { margin-top: 12px; height: 8px; border-radius: 999px; background: var(--border, #e4e6eb); overflow: hidden; } .ds-bar-fill { display: block; height: 100%; border-radius: 999px; background: var(--accent, #b5450c); } .ds-checks { list-style: none; margin: 12px 0 0; padding: 0; } .ds-check { display: flex; align-items: flex-start; gap: 10px; padding: 7px 0; font-size: 15px; line-height: 1.4; } .ds-mark { position: relative; flex: none; width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--border-strong, #ced0d4); background: var(--surface, #ffffff); box-sizing: border-box; } .is-done .ds-mark { background: var(--success-solid, #2c8a55); border-color: var(--success-solid, #2c8a55); } .is-done .ds-mark::after { content: ''; position: absolute; left: 5px; top: 2px; width: 5px; height: 9px; border: solid #ffffff; border-width: 0 2px 2px 0; transform: rotate(45deg); } .is-note .ds-mark { background: var(--notice-soft, #fff8e8); border-color: var(--notice-solid, #c98a0e); } .is-note .ds-mark::after { content: ''; position: absolute; left: 7px; top: 3px; width: 2px; height: 7px; border-radius: 1px; background: var(--notice, #7a4b00); }"
+    },
+    {
+      "name": "Found Panel",
+      "kind": "custom",
+      "refersTo": "found-panel",
+      "description": "Pale green result panel for a found folder, with actions in a wrapping row.",
+      "html": "<div class=\"ds-found\"><p class=\"ds-found-title\">Encontramos tu carpeta</p><p class=\"ds-found-name\">Estudiante de ejemplo</p><div class=\"ds-found-actions\"><a class=\"ds-found-primary\" href=\"#\">Abrir mi carpeta</a></div></div>",
+      "css": ".ds-found { padding: 20px; border-radius: 12px; background: var(--success-soft, #edf7f0); border: 1px solid var(--success-border, #c3e4cf); font-family: Inter, system-ui, sans-serif; max-width: 420px; } .ds-found-title { margin: 0; font-size: 16px; font-weight: 600; line-height: 1.35; color: var(--success, #1d6b42); } .ds-found-name { margin: 2px 0 0; font-size: 16px; font-weight: 700; color: var(--text, #1c1e21); } .ds-found-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; } .ds-found-primary { display: inline-flex; align-items: center; min-height: 48px; padding: 0 24px; border-radius: 10px; background: var(--accent, #b5450c); color: #ffffff; font-size: 16px; font-weight: 600; text-decoration: none; transition: background-color 0.15s ease; } .ds-found-primary:hover { background: var(--accent-hover, #9c3b0a); } .ds-found-primary:focus-visible { outline: 2px solid var(--accent, #b5450c); outline-offset: 2px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "El tablero del curso",
+    "overview": "A course tool, not a landing page. The world borrows the canon the tutor chose, Facebook and Google Classroom: a cool gray canvas, quiet white cards with 12px corners and a hairline border, Inter throughout, and near-black and slate text. The folder lookup is the obvious task. The form notice, the announcements feed and the folder guide sit around it in cards that do not compete with it.\n\nThe institutional UNAD orange is the only voice with volume. It marks the primary action, active and focus states, and the small \"Requisito\" badges, and nothing else. Status comes in pale fields: green for a found folder and completed items, amber for observations and the not-found state, red for errors. Density is comfortable and practical, sized for phones from 360 to 430px first.\n\nThe signature is the folder map: an inline SVG of the student's folder whose subfolders assemble once when it scrolls into view and open slightly when pointed at. Small inline illustrations (a signed attendance sheet, an hours chart, a blurred photo, a public link, an active ARL pill) explain each document rule beside the rule. The world is light only: `color-scheme: light`, with no dark theme.",
+    "keyCharacteristics": [
+      "Cool gray canvas (#f0f2f5) under white cards with 1px borders and near-invisible shadows.",
+      "One accent, UNAD orange, reserved for actions, active and focus states, and rule badges.",
+      "Inter only, bold titles with slight negative tracking, tabular numbers for every count, percentage and ID.",
+      "A two-column workspace on desktop (content plus a 360px rail) that collapses to one column.",
+      "Inline SVG illustration in the same palette, with motion that plays once and never loops.",
+      "Light theme only."
+    ],
+    "rules": [
+      { "name": "The One Voice Rule", "body": "Orange appears only on actions, active or focused states, and rule badges. A heading, a card surface or a decorative stroke is never orange, apart from the root folder glyph.", "section": "colors" },
+      { "name": "The Pale Status Rule", "body": "A state is a pale field with a matching 1px border and a dark text tone of the same hue. Solid status color is only for small marks (check discs, the progress fill, dots).", "section": "colors" },
+      { "name": "The Not By Color Alone Rule", "body": "Every state carries a shape too: a tick, a dash, an exclamation mark, an icon or a text label.", "section": "colors" },
+      { "name": "The Tabular Count Rule", "body": "Every number that can change or be compared (percentages, counts, document IDs, hours, dates) uses tabular figures.", "section": "typography" },
+      { "name": "The Sentence Case Rule", "body": "Labels and badges stay in sentence case at normal tracking. No uppercase tracked labels.", "section": "typography" },
+      { "name": "The Plain Punctuation Rule", "body": "Page text uses no em dashes (—) and no middle dots (·). Use commas, colons, periods or separate lines.", "section": "typography" },
+      { "name": "The One Raised Card Rule", "body": "Only the primary task surface gets the raised shadow. Everything else sits at card rest.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep the canvas gray (#f0f2f5) and put content on white 12px cards with a 1px #e4e6eb border.",
+      "Do reserve orange (#b5450c) for primary actions, active and focus states, links and rule badges.",
+      "Do show states as pale fields with a matching border, plus a shape or icon, never by color alone.",
+      "Do use tabular figures for every count, percentage, ID, hour and date.",
+      "Do keep controls at least 40px tall on touch and the lookup input at 48px.",
+      "Do make illustrations inline SVG in the system palette, with text at 12px or larger.",
+      "Do run illustration motion once, on scroll entry, from a final-state HTML, with an opacity-only fallback for reduced motion.",
+      "Do write page text without em dashes (—) or middle dots (·).",
+      "Do use only the 20 by 20 stroke icon set (1.7 stroke, `currentColor`), always next to a text label."
+    ],
+    "donts": [
+      "Don't add a dark theme or dark sections. The world is light only (`color-scheme: light`).",
+      "Don't raise any card other than the main task above card-rest depth.",
+      "Don't use orange for headings, card surfaces or large decorative areas.",
+      "Don't add a second typeface. Inter carries every role.",
+      "Don't put uppercase tracked labels or eyebrows above titles.",
+      "Don't loop animations or animate content that is already on screen at load.",
+      "Don't put real student data (ID numbers, names, emails, folder links) in examples, illustrations, captures or documentation."
+    ]
+  }
+}

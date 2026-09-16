@@ -23,3 +23,6 @@ data/students.json
 *.xlsm
 *.csv
 ~$*
+
+# Capturas de revisión de diseño (locales)
+.impeccable/review/

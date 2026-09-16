@@ -1,6 +1,16 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
+import {
+  IconAlert,
+  IconCheck,
+  IconCheckCircle,
+  IconCopy,
+  IconExternal,
+  IconMessage,
+  IconRestart,
+  IconSearch,
+} from "./icons";
 
 type ItemState = "pending" | "done" | "na" | "note";
 
@@ -19,7 +29,7 @@ type Result = {
 
 type Status = "idle" | "loading" | "found" | "error";
 
-/** Texto para lectores de pantalla — el icono por sí solo no comunica nada. */
+/** Texto para lectores de pantalla: el círculo por sí solo no comunica nada. */
 const STATE_LABEL: Record<ItemState, string> = {
   done: "Cumplido",
   pending: "Pendiente",
@@ -27,12 +37,34 @@ const STATE_LABEL: Record<ItemState, string> = {
   note: "Con observación",
 };
 
+/**
+ * Cómo se presenta cada respuesta de error de la API. El mensaje sigue
+ * viniendo del servidor; esto solo decide el tono y el título.
+ */
+const ERROR_COPY: Record<string, { tone: "notice" | "error"; title: string }> = {
+  not_found: { tone: "notice", title: "Documento no encontrado" },
+  invalid_id: { tone: "notice", title: "Revisa el número" },
+  rate_limited: { tone: "notice", title: "Demasiados intentos" },
+  unavailable: { tone: "error", title: "El listado no está disponible" },
+  network: { tone: "error", title: "Sin conexión" },
+};
+const FALLBACK_ERROR = { tone: "error" as const, title: "No pudimos hacer la consulta" };
+
+/** Los encabezados del Excel se muestran con los nombres de la guía de carpetas. */
+const PHASE_NAMES: Record<string, string> = {
+  "carpeta administrativa": "Documentos administrativos",
+  "fase 4": "Práctica simulada",
+};
+const phaseName = (name: string) => PHASE_NAMES[name.trim().toLowerCase()] ?? name;
+
 export default function FolderLookup() {
   const [id, setId] = useState("");
   const [status, setStatus] = useState<Status>("idle");
   const [result, setResult] = useState<Result | null>(null);
   const [message, setMessage] = useState("");
+  const [errorCode, setErrorCode] = useState("");
   const [copied, setCopied] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const isLoading = status === "loading";
   const canSubmit = id.length >= 6 && !isLoading;
@@ -44,6 +76,7 @@ export default function FolderLookup() {
     setStatus("loading");
     setResult(null);
     setMessage("");
+    setErrorCode("");
     setCopied(false);
 
     try {
@@ -60,6 +93,7 @@ export default function FolderLookup() {
 
       if (!response.ok) {
         setStatus("error");
+        setErrorCode(typeof data?.error === "string" ? data.error : "");
         setMessage(data?.message ?? "No pudimos completar la consulta.");
         return;
       }
@@ -68,6 +102,7 @@ export default function FolderLookup() {
       setStatus("found");
     } catch {
       setStatus("error");
+      setErrorCode("network");
       setMessage("No hay conexión con el servidor. Revisa tu internet e intenta de nuevo.");
     }
   }
@@ -77,7 +112,10 @@ export default function FolderLookup() {
     setStatus("idle");
     setResult(null);
     setMessage("");
+    setErrorCode("");
     setCopied(false);
+    // El botón que se pulsó desaparece: el foco vuelve al campo
+    inputRef.current?.focus();
   }
 
   async function copyLink() {
@@ -91,171 +129,195 @@ export default function FolderLookup() {
     }
   }
 
+  const error = ERROR_COPY[errorCode] ?? FALLBACK_ERROR;
   const percent = result && result.total > 0 ? Math.round((result.done / result.total) * 100) : 0;
 
   return (
-    <section className="card" aria-labelledby="lookup-title">
-      <h2 className="card-title" id="lookup-title">
-        Consulta tu carpeta
-      </h2>
-      <p className="card-hint">
-        Escribe tu número de documento tal como quedó registrado en el curso, sin puntos ni
-        espacios.
-      </p>
-
-      <form onSubmit={handleSubmit} noValidate>
-        <label className="field-label" htmlFor="documento">
-          Número de documento
-        </label>
-
-        <div className="field-row">
-          <input
-            id="documento"
-            name="documento"
-            type="text"
-            inputMode="numeric"
-            autoComplete="off"
-            autoCorrect="off"
-            spellCheck={false}
-            enterKeyHint="search"
-            placeholder="1234567890"
-            aria-describedby="documento-ayuda"
-            value={id}
-            onChange={(event) => {
-              // Solo dígitos, máximo 12: filtra puntos, comas y espacios al pegar
-              setId(event.target.value.replace(/\D/g, "").slice(0, 12));
-              if (status !== "idle") {
-                setStatus("idle");
-                setResult(null);
-                setMessage("");
-              }
-            }}
-          />
-
-          <button type="submit" className="btn-primary" disabled={!canSubmit}>
-            {isLoading ? (
-              <>
-                <span className="spinner" aria-hidden="true" />
-                Buscando
-              </>
-            ) : (
-              "Ver mi carpeta"
-            )}
-          </button>
+    <>
+      <section className="card lookup" aria-labelledby="lookup-title">
+        <div className="card-head">
+          <h2 className="lookup-title" id="lookup-title">
+            Consulta tu carpeta
+          </h2>
+          <p className="card-lede">
+            Escribe tu número de documento tal como quedó registrado en el curso, sin puntos ni
+            espacios.
+          </p>
         </div>
 
-        <span className="sr-only" id="documento-ayuda">
-          Entre 6 y 12 dígitos. Solo se muestra la carpeta que corresponde a ese documento.
-        </span>
-      </form>
+        <form className="lookup-form" onSubmit={handleSubmit} noValidate aria-busy={isLoading}>
+          <label className="field-label" htmlFor="documento">
+            Número de documento
+          </label>
 
-      <div aria-live="polite" aria-atomic="true">
-        {status === "error" && (
-          <p className="alert" role="alert">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-              <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5" />
-              <path
-                d="M8 4.5v4.2M8 11.3v.2"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
+          <div className="lookup-row">
+            <div className="input-wrap">
+              <IconSearch className="input-icon" size={18} />
+              <input
+                ref={inputRef}
+                className="input"
+                id="documento"
+                name="documento"
+                type="text"
+                inputMode="numeric"
+                autoComplete="off"
+                autoCorrect="off"
+                spellCheck={false}
+                enterKeyHint="search"
+                placeholder="1234567890"
+                aria-describedby="documento-ayuda"
+                value={id}
+                onChange={(event) => {
+                  // Solo dígitos, máximo 12: filtra puntos, comas y espacios al pegar
+                  setId(event.target.value.replace(/\D/g, "").slice(0, 12));
+                  if (status !== "idle") {
+                    setStatus("idle");
+                    setResult(null);
+                    setMessage("");
+                    setErrorCode("");
+                  }
+                }}
               />
-            </svg>
-            <span>{message}</span>
+            </div>
+
+            <button type="submit" className="btn btn-primary btn-lg" disabled={!canSubmit}>
+              {isLoading ? (
+                <>
+                  <span className="spinner" aria-hidden="true" />
+                  Buscando
+                </>
+              ) : (
+                "Ver mi carpeta"
+              )}
+            </button>
+          </div>
+
+          <p className="field-hint" id="documento-ayuda">
+            Entre 6 y 12 dígitos. Solo se muestra la carpeta que corresponde a ese documento.
           </p>
-        )}
+        </form>
 
-        {status === "found" && result && (
-          <>
-            <div className="result">
-              <p className="result-label">Carpeta encontrada</p>
-              <p className="result-name">
-                {result.name}
-                {result.group && <span className="chip">CIPAS {result.group}</span>}
-              </p>
+        <div aria-live="polite">
+          {status === "error" && (
+            <div className={`alert is-${error.tone}`} role="alert">
+              <span className="alert-icon">
+                {error.tone === "notice" ? <IconSearch size={20} /> : <IconAlert size={20} />}
+              </span>
+              <div>
+                <p className="alert-title">{error.title}</p>
+                <p className="alert-text">{message}</p>
+              </div>
+            </div>
+          )}
 
-              <div className="result-actions">
+          {status === "found" && result && (
+            <div className="found">
+              <div className="found-head">
+                <span className="found-icon">
+                  <IconCheckCircle size={22} />
+                </span>
+                <div className="found-who">
+                  <p className="found-title">Carpeta encontrada</p>
+                  <p className="found-name">{result.name}</p>
+                </div>
+                {result.group && <span className="badge">CIPAS {result.group}</span>}
+              </div>
+
+              <div className="found-actions">
                 <a
-                  className="btn-open"
+                  className="btn btn-primary"
                   href={result.url}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   Abrir mi carpeta
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                    <path
-                      d="M5.25 2.5h6.25v6.25M11.5 2.5 5.5 8.5"
-                      stroke="currentColor"
-                      strokeWidth="1.6"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M9 9.5v2h-7v-7h2"
-                      stroke="currentColor"
-                      strokeWidth="1.6"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                  <IconExternal size={16} />
                 </a>
-
-                <button type="button" className="btn-ghost" onClick={copyLink}>
+                <button type="button" className="btn btn-secondary" onClick={copyLink}>
+                  {copied ? <IconCheck size={16} /> : <IconCopy size={16} />}
                   {copied ? "Link copiado" : "Copiar link"}
                 </button>
-
-                <button type="button" className="btn-ghost" onClick={reset}>
+                <button type="button" className="btn btn-tertiary" onClick={reset}>
+                  <IconRestart size={16} />
                   Consultar otro
                 </button>
               </div>
-            </div>
 
-            {result.comments && (
-              <div className="note-box">
-                <p className="note-label">Nota del tutor</p>
-                <p className="note-text">{result.comments}</p>
-              </div>
-            )}
-
-            {result.total > 0 && (
-              <div className="progress">
-                <div className="progress-head">
-                  <p className="progress-count">
-                    <strong>{result.done}</strong> de {result.total} al día
-                  </p>
-                  <div
-                    className="progress-track"
-                    role="progressbar"
-                    aria-valuenow={result.done}
-                    aria-valuemin={0}
-                    aria-valuemax={result.total}
-                    aria-label="Avance general"
-                  >
-                    <div className="progress-fill" style={{ width: `${percent}%` }} />
+              {result.comments && (
+                <div className="tutor-note">
+                  <IconMessage size={18} />
+                  <div>
+                    <p className="tutor-note-label">Nota del tutor</p>
+                    <p className="tutor-note-text">{result.comments}</p>
                   </div>
                 </div>
+              )}
+            </div>
+          )}
+        </div>
+      </section>
 
-                {result.phases.map((phase) => (
-                  <div className="phase" key={phase.phase}>
-                    <p className="phase-name">{phase.phase}</p>
-                    <ul className="items">
-                      {phase.items.map((item) => (
-                        <li className={`item is-${item.state}`} key={item.label}>
-                          <span className="item-mark" aria-hidden="true" />
-                          <span className="item-label">{item.label}</span>
-                          {item.state === "note" && <span className="item-note">{item.note}</span>}
-                          {item.state === "na" && <span className="item-tag">no aplica</span>}
-                          <span className="sr-only">— {STATE_LABEL[item.state]}</span>
-                        </li>
-                      ))}
-                    </ul>
+      {status === "found" && result && result.total > 0 && (
+        <section className="card progress" aria-labelledby="progress-title">
+          <div className="progress-head">
+            <div>
+              <h2 className="card-title" id="progress-title">
+                Progreso de tu carpeta
+              </h2>
+              <p className="progress-count">
+                <strong>{result.done}</strong> de {result.total} documentos
+              </p>
+            </div>
+            <span className="progress-pct">{percent}%</span>
+          </div>
+
+          <div
+            className="bar"
+            role="progressbar"
+            aria-valuenow={result.done}
+            aria-valuemin={0}
+            aria-valuemax={result.total}
+            aria-label="Avance de tu carpeta"
+          >
+            <span
+              className={percent === 100 ? "bar-fill is-complete" : "bar-fill"}
+              style={{ transform: `scaleX(${percent / 100})` }}
+            />
+          </div>
+
+          <div className="phases">
+            {result.phases.map((phase) => {
+              const counted = phase.items.filter((item) => item.state !== "na");
+              const phaseDone = counted.filter((item) => item.state === "done").length;
+              return (
+                <div className="phase" key={phase.phase}>
+                  <div className="phase-head">
+                    <h3 className="phase-title">{phaseName(phase.phase)}</h3>
+                    <span className="phase-count">
+                      {phaseDone}/{counted.length}
+                    </span>
                   </div>
-                ))}
-              </div>
-            )}
-          </>
-        )}
-      </div>
-    </section>
+                  <ul className="checks">
+                    {phase.items.map((item) => (
+                      <li className={`check is-${item.state}`} key={item.label}>
+                        <span className="check-mark" aria-hidden="true" />
+                        <span className="check-body">
+                          <span className="check-label">{item.label}</span>
+                          {item.state === "note" && (
+                            <span className="check-note">{item.note}</span>
+                          )}
+                        </span>
+                        {item.state === "na" && <span className="badge is-muted">No aplica</span>}
+                        <span className="sr-only">, {STATE_LABEL[item.state]}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )}
+    </>
   );
 }

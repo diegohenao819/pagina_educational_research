@@ -4,7 +4,7 @@ import "server-only";
  * Limitador por IP, en memoria (ventana deslizante simple).
  *
  * OJO: en Vercel cada instancia serverless tiene su propia memoria y las
- * instancias se reciclan, así que esto NO es un límite global estricto —
+ * instancias se reciclan, así que esto NO es un límite global estricto:
  * es un freno barato contra fuerza bruta desde una sola máquina.
  * Para algo estricto habría que usar un store compartido (Upstash Redis, etc.).
  */

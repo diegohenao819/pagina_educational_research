@@ -8,7 +8,7 @@ import { join } from "node:path";
 
 /* ────────── forma de los datos que genera `npm run import` ────────── */
 
-/** Marca cruda de una celda: "" pendiente · "x" cumplido · "/" no aplica · otro = nota */
+/** Marca cruda de una celda: "" pendiente, "x" cumplido, "/" no aplica, otro = nota */
 type RawMark = string;
 
 type RawStudent = {
@@ -144,7 +144,7 @@ function load(): Directory {
     });
   }
 
-  console.log(`[students] ${byId.size} registros · ${flatLabels.length} ítems de seguimiento.`);
+  console.log(`[students] ${byId.size} registros, ${flatLabels.length} ítems de seguimiento.`);
   return { byId, size: byId.size };
 }
 

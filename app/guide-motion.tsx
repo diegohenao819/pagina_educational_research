@@ -2,6 +2,9 @@
 
 import { useEffect, useRef, type ReactNode } from "react";
 
+/** Proporción de la figura que debe verse para reproducirla */
+const VISIBLE_RATIO = 0.4;
+
 /**
  * Reproduce cada ilustración de la guía UNA vez, cuando entra en pantalla.
  *
@@ -48,18 +51,26 @@ export default function GuideMotion({ children }: { children: ReactNode }) {
           play(entry.target as HTMLElement);
         }
       },
-      { threshold: 0.4 }
+      { threshold: VISIBLE_RATIO }
     );
 
     const detach: Array<() => void> = [];
 
     for (const el of figures) {
       const box = el.getBoundingClientRect();
-      const visible = box.bottom > 0 && box.top < window.innerHeight;
-      if (!visible) {
+      const shown = Math.min(box.bottom, window.innerHeight) - Math.max(box.top, 0);
+      const ratio = shown / Math.max(box.height, 1);
+
+      if (shown <= 0) {
+        // Fuera de pantalla: espera en el primer cuadro hasta que se vea
         el.dataset.motion = "armed";
         observer.observe(el);
+      } else if (ratio < VISIBLE_RATIO) {
+        // Asoma por el borde al cargar: esconderla dejaría un hueco en blanco,
+        // así que se arma ahí mismo, como parte de la entrada de la página
+        play(el);
       }
+      // Bien visible al cargar: se queda quieta (animarla sería un parpadeo)
 
       // Solo las ilustraciones pequeñas se repiten; el mapa es navegación
       // y repetirlo cada vez que el mouse pasa para hacer clic estorbaría.

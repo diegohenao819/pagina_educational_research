@@ -137,7 +137,7 @@ const normalizeId = (value) => String(value ?? "").replace(/\D/g, "");
 
 /** Sin tildes, en minúscula: para comparar encabezados */
 const slug = (s) =>
-  String(s ?? "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/\s+/g, " ").trim();
+  String(s ?? "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, " ").trim();
 
 /* ────────── convención de marcas ────────── */
 
@@ -362,21 +362,21 @@ const notes = allMarks.filter((m) => m !== "" && m !== "x" && m !== "/").length;
 const totalItems = allMarks.length;
 
 console.log(`\n  Fuente: ${basename(mainPath)}  (encabezados en la fila ${headerRowNum})`);
-console.log(`  ${students.length} estudiantes · ${trackingColumns.length} ítems de seguimiento c/u`);
+console.log(`  ${students.length} estudiantes, ${trackingColumns.length} ítems de seguimiento c/u`);
 console.log(`  Cédulas: ${fieldColumn.id ? "columna propia del archivo" : `cruzadas por correo con ${ID_FALLBACK_FILE}`}`);
 
 const byPhase = new Map();
 for (const item of trackingColumns) byPhase.set(item.phase, (byPhase.get(item.phase) ?? 0) + 1);
 console.log(`\n  Fases detectadas:`);
-for (const [phase, n] of byPhase) console.log(`    · ${phase} (${n} ítem${n === 1 ? "" : "s"})`);
+for (const [phase, n] of byPhase) console.log(`    - ${phase} (${n} ítem${n === 1 ? "" : "s"})`);
 
-console.log(`\n  Marcas: ${done} cumplidas · ${notes} con nota · ${na} no aplica · ${totalItems - done - notes - na} pendientes (de ${totalItems})`);
+console.log(`\n  Marcas: ${done} cumplidas, ${notes} con nota, ${na} no aplica, ${totalItems - done - notes - na} pendientes (de ${totalItems})`);
 console.log(`\n  -> data/students.json`);
 
 // Vercel admite 64 KB en total entre todas las variables de entorno
 const bytes = Buffer.byteLength(compact);
 const budget = Math.round((bytes / 65536) * 100);
-console.log(`  -> .env.local y .env.value  (${bytes} bytes · ${budget}% del límite de Vercel)`);
+console.log(`  -> .env.local y .env.value  (${bytes} bytes, ${budget}% del límite de Vercel)`);
 if (bytes > 45000) {
   console.log(`\n  ATENCIÓN: el dataset se está acercando al límite de 64 KB de Vercel.`);
   console.log(`  Acorta los textos de la columna "Comments" o pásate a una base de datos.`);
