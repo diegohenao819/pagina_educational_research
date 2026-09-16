@@ -24,7 +24,7 @@ Un solo lugar, por estudiante, que junta su carpeta privada, su avance real y la
 
 ## Operating Context
 
-- El tutor mantiene un Excel de seguimiento (nombre, correo, carpeta, CIPAS y una columna por ítem) y lo publica con `npm run import` / `npm run publish`.
+- El tutor mantiene un Excel de seguimiento (nombre, correo, carpeta, grupo y una columna por ítem) y lo publica con `npm run import` / `npm run publish`. En la página, el grupo se muestra como "Grupo", no como "CIPAS".
 - Las fases del curso son: Documentos administrativos, Fase 2, Fase 3, Práctica simulada y Fase 5.
 - Los formatos oficiales (asistencia F-7-6-12, diario de campo, plan de trabajo) viven en Google Drive; la carta de presentación se genera en SAI (e-Letter); la ARL tiene un comunicado.
 - Antes de consultar su carpeta, el estudiante debe registrar su lugar de prácticas en un formulario de Google.

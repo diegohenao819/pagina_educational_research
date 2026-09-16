@@ -220,7 +220,7 @@ export default function FolderLookup() {
                   <p className="found-title">Carpeta encontrada</p>
                   <p className="found-name">{result.name}</p>
                 </div>
-                {result.group && <span className="badge">CIPAS {result.group}</span>}
+                {result.group && <span className="badge">Grupo {result.group}</span>}
               </div>
 
               <div className="found-actions">
