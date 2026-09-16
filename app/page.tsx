@@ -118,6 +118,7 @@ export default function Home() {
           ¿Tu documento no aparece o el enlace no abre? Escríbele al tutor del curso para que lo
           revise.
         </p>
+        <p className="footer-credit">Made with &lt;3 by Diego Henao</p>
       </footer>
     </div>
   );
