@@ -1,0 +1,25 @@
+node_modules/
+.next/
+out/
+build/
+.vercel/
+*.tsbuildinfo
+next-env.d.ts
+.DS_Store
+npm-debug.log*
+
+# ── DATOS CONFIDENCIALES — no versionar ──────────────────────────────
+# Cédulas, correos y links privados. Se regeneran con `npm run import`.
+data/students.json
+.env
+.env.local
+.env.*.local
+.env.value
+
+# CUALQUIER Excel: todos traen los links de las carpetas.
+# Se ignoran por extensión a propósito, para que agregar un archivo nuevo
+# (otro semestre, otro grupo) no lo filtre al repositorio por descuido.
+*.xlsx
+*.xlsm
+*.csv
+~$*
