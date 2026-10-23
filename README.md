@@ -102,7 +102,44 @@ todo queda en un solo archivo. El importador lo detecta solo y te lo avisa en co
 
 ---
 
-## 3. Actualizar y publicar
+## 3. Panel del tutor y base de datos
+
+La página puede leer los datos de dos lugares:
+
+| Origen | Cuándo se usa |
+|---|---|
+| **Base de datos** (Neon Postgres) | Cuando existe `DATABASE_URL` **y** ya tiene estudiantes |
+| **Excel** (`STUDENTS_JSON`) | Mientras la base esté vacía, o si la base falla |
+
+Ese respaldo es a propósito: ningún estudiante se queda sin su carpeta por un
+problema de la base o por un despliegue hecho antes de cargar los datos.
+
+### Entrar al panel
+
+1. En Vercel, agrega la variable **`TUTOR_PASSWORD`** (Settings, Environment
+   Variables) con al menos 8 caracteres, y vuelve a desplegar.
+2. Abre `/panel` y entra con esa contraseña. La sesión dura 12 horas.
+3. Si cambias la contraseña, todas las sesiones abiertas se cierran solas.
+
+### Qué puedes hacer ahí
+
+- **Subir el Excel**: actualiza nombres, correos, enlaces y grupos. Las marcas
+  que ya hiciste en el panel se conservan, salvo que marques la casilla de
+  reemplazarlas.
+- **Marcar cada documento** como pendiente, cumplido o no aplica, o escribir una
+  observación que el estudiante verá junto al documento.
+- **Escribir la nota del tutor**, que aparece en su tarjeta de resultado.
+
+Los cambios se ven de inmediato en la página; no hay que volver a desplegar.
+
+### Las tablas
+
+Se crean solas la primera vez (`students`, `items`, `marks`). El esquema está en
+[lib/db.ts](lib/db.ts) y las consultas en [lib/course.ts](lib/course.ts).
+
+---
+
+## 4. Actualizar y publicar sin base de datos
 
 Cuando cambies el Excel:
 
@@ -122,7 +159,7 @@ o con cédula repetida) y cuánto del presupuesto de 64 KB llevas usado.
 
 ---
 
-## 4. Publicar anuncios
+## 5. Publicar anuncios
 
 Edita [content/announcements.ts](content/announcements.ts) y agrega un objeto **al
 principio** de la lista:
@@ -141,7 +178,7 @@ página. Los enlaces privados nunca van aquí.
 
 ---
 
-## 5. Confidencialidad
+## 6. Confidencialidad
 
 ```
 Navegador                          Servidor (Vercel)
@@ -183,7 +220,7 @@ descargar, **ninguno** contiene un link, una cédula ni un correo.
 
 ---
 
-## 6. Primer despliegue
+## 7. Primer despliegue
 
 ```bash
 npx vercel login
@@ -209,7 +246,7 @@ despliega solo. Los datos siguen viajando por `STUDENTS_JSON`, aparte del códig
 
 ---
 
-## 7. Desarrollo local
+## 8. Desarrollo local
 
 ```bash
 npm run dev

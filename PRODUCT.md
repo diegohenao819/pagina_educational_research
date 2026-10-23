@@ -25,10 +25,11 @@ Un solo lugar, por estudiante, que junta su carpeta privada, su avance real y la
 ## Operating Context
 
 - El tutor mantiene un Excel de seguimiento (nombre, correo, carpeta, grupo y una columna por ítem) y lo publica con `npm run import` / `npm run publish`. En la página, el grupo se muestra como "Grupo", no como "CIPAS".
-- Las fases del curso son: Documentos administrativos, Fase 2, Fase 3, Práctica simulada y Fase 5.
+- Las fases del curso son: Documentos administrativos, Fase 2, Fase 3, Práctica simulada y Fase 5. El avance del estudiante no muestra la Fase 5 ni las columnas Webinar, Epica y los foros (`lib/hidden-items.mjs`).
 - Los formatos oficiales (asistencia F-7-6-12, diario de campo, plan de trabajo) viven en Google Drive; la carta de presentación se genera en SAI (e-Letter); la ARL tiene un comunicado.
 - Antes de consultar su carpeta, el estudiante debe registrar su lugar de prácticas en un formulario de Google.
-- Despliegue en Vercel.
+- El tutor marca el avance de cada estudiante en un panel privado (`/panel`), protegido con una contraseña que vive como variable de entorno.
+- Despliegue en Vercel, con base de datos Postgres (Neon) conectada al proyecto.
 
 ## Capabilities and Constraints
 
@@ -36,6 +37,8 @@ Un solo lugar, por estudiante, que junta su carpeta privada, su avance real y la
 - Límite de intentos por IP y latencia mínima en la búsqueda.
 - Los datos de estudiantes no se versionan (Excel, `.env`, `data/` en `.gitignore`). Ningún ejemplo, captura o documentación del repositorio puede contener datos reales de estudiantes.
 - Estados de la búsqueda: normal, cargando, carpeta encontrada, documento no encontrado y error.
+- Los datos viven en Postgres cuando la base ya tiene estudiantes; si está vacía o falla, la página responde con el respaldo generado desde el Excel. Nadie se queda sin su carpeta por un problema de la base.
+- El Excel se sube desde el panel: actualiza el listado sin pisar las marcas hechas a mano, salvo que se pida expresamente.
 - Solo tema claro. No hay modo oscuro.
 - Sin guiones largos (—) ni puntos medios (·) en los textos de la página.
 

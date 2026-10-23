@@ -6,6 +6,9 @@ import "server-only";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
+import { hasDatabase } from "./db";
+import { isHiddenItem } from "./hidden-items.mjs";
+
 /* ────────── forma de los datos que genera `npm run import` ────────── */
 
 /** Marca cruda de una celda: "" pendiente, "x" cumplido, "/" no aplica, otro = nota */
@@ -58,7 +61,7 @@ export function normalizeId(input: unknown): string {
   return String(input ?? "").replace(/\D/g, "");
 }
 
-function decodeMark(mark: RawMark): { state: ItemState; note: string } {
+export function decodeMark(mark: RawMark): { state: ItemState; note: string } {
   if (mark === "") return { state: "pending", note: "" };
   if (mark === "x") return { state: "done", note: "" };
   if (mark === "/") return { state: "na", note: "" };
@@ -123,14 +126,23 @@ function load(): Directory {
 
     let cursor = 0;
     let done = 0;
-    const phases: ProgressPhase[] = parsed.phases.map((phase) => ({
-      phase: phase.phase,
-      items: phase.items.map((label) => {
+    let total = 0;
+    const phases: ProgressPhase[] = [];
+
+    for (const phase of parsed.phases) {
+      const items: ProgressItem[] = [];
+      for (const label of phase.items) {
+        // El cursor avanza siempre, aunque el ítem esté oculto: las marcas van
+        // en el mismo orden que todas las columnas del JSON.
         const decoded = decodeMark(marks[cursor++] ?? "");
+        if (isHiddenItem(phase.phase, label)) continue;
         if (decoded.state === "done") done++;
-        return { label, ...decoded };
-      }),
-    }));
+        // Los ítems marcados "no aplica" no cuentan para el total
+        if (decoded.state !== "na") total++;
+        items.push({ label, ...decoded });
+      }
+      if (items.length > 0) phases.push({ phase: phase.phase, items });
+    }
 
     byId.set(id, {
       name: row.name ?? "",
@@ -139,8 +151,7 @@ function load(): Directory {
       comments: row.comments ?? "",
       phases,
       done,
-      // Los ítems marcados "no aplica" no cuentan para el total
-      total: flatLabels.length - phases.flatMap((p) => p.items).filter((i) => i.state === "na").length,
+      total,
     });
   }
 
@@ -156,10 +167,35 @@ function directory(): Directory {
   return cache;
 }
 
-export function findStudent(rawId: string): StudentView | null {
+/**
+ * La base de datos manda, pero solo cuando ya tiene estudiantes: así, mientras
+ * no se haya subido el Excel al panel (o si la base falla), la página sigue
+ * respondiendo con el JSON y ningún estudiante se queda sin su carpeta.
+ */
+export async function findStudent(rawId: string): Promise<StudentView | null> {
+  if (hasDatabase) {
+    try {
+      const { fetchStudentView, countStudents } = await import("./course");
+      const found = await fetchStudentView(rawId);
+      if (found) return found;
+      // Con la base poblada, no encontrarlo es la respuesta correcta
+      if ((await countStudents()) > 0) return null;
+    } catch (error) {
+      console.error("[students] la base de datos falló, se usa el respaldo:", error);
+    }
+  }
   return directory().byId.get(normalizeId(rawId)) ?? null;
 }
 
-export function directorySize(): number {
+export async function datasetSize(): Promise<number> {
+  if (hasDatabase) {
+    try {
+      const { countStudents } = await import("./course");
+      const count = await countStudents();
+      if (count > 0) return count;
+    } catch (error) {
+      console.error("[students] no se pudo contar en la base:", error);
+    }
+  }
   return directory().size;
 }

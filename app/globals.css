@@ -1356,6 +1356,275 @@ main {
   margin-top: 6px;
 }
 
+/* ═══════════════ Panel del tutor ═══════════════ */
+
+.alert.is-ok {
+  background: var(--success-soft);
+  border-color: var(--success-border);
+  color: var(--success);
+}
+
+.panel {
+  display: grid;
+  gap: 16px;
+}
+
+.panel-login .input {
+  padding-left: 16px;
+  letter-spacing: normal;
+}
+
+.panel-files {
+  display: grid;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+@media (min-width: 720px) {
+  .panel-files {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.panel-file {
+  display: block;
+  margin-top: 8px;
+  width: 100%;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.panel-file::file-selector-button {
+  margin-right: 12px;
+  padding: 8px 14px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-control);
+  cursor: pointer;
+}
+
+.panel-file::file-selector-button:hover {
+  background: var(--surface-muted);
+  border-color: var(--border-hover);
+}
+
+.panel-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  font-size: 15px;
+  color: var(--text-secondary);
+}
+
+.panel-check input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+}
+
+.panel-grid {
+  display: grid;
+  gap: 16px;
+  align-items: start;
+}
+
+@media (min-width: 960px) {
+  .panel-grid {
+    grid-template-columns: var(--rail) minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  .panel-roster {
+    position: sticky;
+    top: 24px;
+  }
+}
+
+.panel-roster-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.panel-roster-head .count-pill {
+  margin-left: auto;
+}
+
+.panel-search {
+  margin-bottom: 8px;
+}
+
+.panel-search .input {
+  height: 44px;
+  font-size: 15px;
+  letter-spacing: normal;
+}
+
+.roster-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+.roster-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 44px;
+  padding: 8px 10px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-control);
+  background: transparent;
+  font: inherit;
+  font-size: 15px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.roster-item:hover {
+  background: var(--surface-muted);
+}
+
+.roster-item.is-active {
+  background: var(--accent-soft);
+  border-color: var(--accent-border);
+}
+
+.roster-name {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.roster-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+}
+
+.roster-count {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.panel-detail-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.panel-phase {
+  margin-top: 20px;
+}
+
+.panel-items {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.panel-item {
+  display: grid;
+  gap: 8px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.panel-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.panel-item-label {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.mark-group {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.mark-btn {
+  min-height: 36px;
+  padding: 0 14px;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  background: var(--surface);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+@media (pointer: coarse) {
+  .mark-btn {
+    min-height: 40px;
+  }
+}
+
+.mark-btn:hover {
+  border-color: var(--border-hover);
+  color: var(--text);
+}
+
+.mark-btn[aria-pressed="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #ffffff;
+}
+
+.panel-item-note,
+.panel-textarea {
+  height: auto;
+  min-height: 40px;
+  padding: 10px 14px;
+  font-size: 15px;
+  letter-spacing: normal;
+}
+
+.panel-textarea {
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.panel-comments {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.panel-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
 /* ═══════════════ Piezas de las ilustraciones ═══════════════ */
 
 /* Carpeta con hojas */

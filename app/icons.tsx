@@ -84,6 +84,12 @@ export const IconDownload = (p: IconProps) => (
   </Svg>
 );
 
+export const IconUpload = (p: IconProps) => (
+  <Svg {...p}>
+    <path d="M10 12.5V3.75M6.25 7.5 10 3.75l3.75 3.75M4.25 16h11.5" />
+  </Svg>
+);
+
 export const IconMegaphone = (p: IconProps) => (
   <Svg {...p}>
     <path d="M3.75 8.6v2.8c0 .55.45 1 1 1h1.6l5.9 3.4V4.2L6.35 7.6h-1.6c-.55 0-1 .45-1 1Z" />

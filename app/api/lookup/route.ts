@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { findStudent, normalizeId, directorySize } from "@/lib/students";
+import { findStudent, normalizeId, datasetSize } from "@/lib/students";
 import { checkRateLimit, clientIp } from "@/lib/rate-limit";
 
 // Nunca cachear ni prerenderizar: la respuesta depende del cuerpo del POST.
@@ -70,7 +70,7 @@ export async function POST(request: Request) {
     );
   }
 
-  if (directorySize() === 0) {
+  if ((await datasetSize()) === 0) {
     console.error("[lookup] El directorio está vacío: revisa STUDENTS_JSON.");
     return settle(
       reply(
@@ -83,7 +83,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const student = findStudent(id);
+  const student = await findStudent(id);
 
   if (!student) {
     // Nunca se registra el número consultado (dato personal).

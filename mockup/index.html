@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Educational Research | Maqueta</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page">
+
+    <header class="header">
+      <img class="logo" src="../public/logo-unad.png" alt="UNAD" width="427" height="302">
+      <div>
+        <h1>Educational Research</h1>
+        <p class="muted">Curso 518024</p>
+      </div>
+    </header>
+
+    <nav class="nav" aria-label="Secciones">
+      <a href="#carpeta">Mi carpeta</a>
+      <a href="#actividades">Actividades</a>
+      <a href="#documentacion">Documentación</a>
+    </nav>
+
+    <main>
+
+      <!-- 1. Consulta tu carpeta -->
+      <section class="section card" id="carpeta" aria-labelledby="carpeta-title">
+        <h2 id="carpeta-title">Consulta tu carpeta</h2>
+        <p class="muted">Escribe tu número de documento para ver el enlace a tu carpeta personal.</p>
+
+        <form class="lookup" onsubmit="return false">
+          <label class="sr-only" for="doc">Número de documento</label>
+          <input id="doc" type="text" inputmode="numeric" placeholder="Número de documento">
+          <button class="btn" type="submit">Consultar</button>
+        </form>
+
+        <p class="hint">
+          Antes de consultar, registra tu lugar de prácticas en el
+          <a href="https://forms.gle/zfNnoAdeMBbMUYiS7" target="_blank" rel="noopener">formulario</a>.
+        </p>
+      </section>
+
+      <!-- 2. Actividades -->
+      <section class="section" id="actividades" aria-labelledby="act-title">
+        <h2 id="act-title">Actividades</h2>
+
+        <!-- Fase 3 -->
+        <article class="card phase phase-current">
+          <header class="phase-head">
+            <p class="phase-num">Fase 3</p>
+            <span class="badge badge-open">Abierta</span>
+          </header>
+          <h3>Practical component: educational and pedagogical practice</h3>
+          <p class="dates">5 oct a 1 nov 2026. Individual, 130 puntos.</p>
+
+          <p>Analizas tu diario de campo de la Fase 2: eliges fragmentos, les pones códigos, los agrupas en categorías y explicas qué significan para tu práctica.</p>
+
+          <div class="links">
+            <a class="chip chip-primary" href="https://docs.google.com/document/d/1yKrFx5P6mC8EiHTqDAsIl7AopyGwVJUh/edit?usp=sharing" target="_blank" rel="noopener">Plantilla (Anexo 1)</a>
+            <a class="chip" href="https://drive.google.com/file/d/13KxLB5Bt3JcIL7sdJhLA8G3qeh1T_yV1/view?usp=sharing" target="_blank" rel="noopener">Lista de chequeo</a>
+            <a class="chip" href="https://campus155.unad.edu.co/ses121/mod/resource/view.php?id=4589" target="_blank" rel="noopener">Guía de la actividad</a>
+          </div>
+
+          <h4 class="block-title">Paso a paso</h4>
+          <ol class="steps">
+            <li><strong>Anonimiza tu diario.</strong> Cambia los nombres por códigos: S1, S2, Teacher A, School A.</li>
+            <li><strong>Llena la matriz de 4 columnas.</strong> Fragmento textual, código, categoría e interpretación. Entre 7 y 10 filas.</li>
+            <li><strong>Escribe el análisis.</strong> Unas 500 palabras en tus propias palabras, con autores citados en APA 7.</li>
+            <li><strong>Guarda capturas del proceso.</strong> Si usas IA, van en el Apéndice A (figuras A1 a A4).</li>
+            <li><strong>Participa en el foro.</strong> Publica tu matriz y responde a 2 compañeros.</li>
+          </ol>
+
+          <h4 class="block-title">Qué entregas y dónde</h4>
+          <div class="deliver">
+            <div class="deliver-item">
+              <p class="deliver-where"><a href="https://campus155.unad.edu.co/ses121/mod/assign/view.php?id=4594" target="_blank" rel="noopener">Campus</a></p>
+              <p class="deliver-due">Hasta el 1 nov</p>
+              <p>1 PDF llamado <code>518024 - Phase 3 - Your Full Name.pdf</code>: portada, matriz, análisis, evidencias, referencias y asistencia a ÉPICA y CIPAS.</p>
+            </div>
+            <div class="deliver-item">
+              <p class="deliver-where">Tu carpeta</p>
+              <p class="deliver-due">Hasta el 1 nov</p>
+              <p><a href="https://drive.google.com/file/d/1UadYpPG2ze7N0f30BfzzPbo3EO_-wQaH/view?usp=sharing" target="_blank" rel="noopener">Anexo 2</a>: asistencia de 12 horas. <a href="https://drive.google.com/file/d/1QtYWt1aFG6s5zncfL8In8omOCDWz2XRl/view?usp=sharing" target="_blank" rel="noopener">Anexo 3</a>: field journal con todas tus sesiones.</p>
+            </div>
+            <div class="deliver-item">
+              <p class="deliver-where"><a href="https://campus155.unad.edu.co/ses121/mod/forum/view.php?id=4592" target="_blank" rel="noopener">Foro</a></p>
+              <p class="deliver-due">Hasta el 29 oct</p>
+              <p>Tu matriz y 2 respuestas a compañeros, escritas por ti.</p>
+            </div>
+          </div>
+
+          <ul class="facts notes">
+            <li>¿Te faltan horas de la Fase 2? Complétalas ahora: 24 horas en total al cierre de la Fase 3.</li>
+            <li>ÉPICA sobre IA en investigación cualitativa: 24 oct, 10:00 a.m.</li>
+            <li>La IA puede ayudarte con las columnas 1 a 3. La interpretación y el análisis son tuyos: más de 15 % de similitud en Turnitin, incluido texto de IA, es 0.</li>
+          </ul>
+        </article>
+
+        <!-- Fase 2 -->
+        <article class="card phase">
+          <header class="phase-head">
+            <p class="phase-num">Fase 2</p>
+            <span class="badge badge-closed">Cerrada</span>
+          </header>
+          <h3>Practical component: educational and pedagogical practice</h3>
+          <p class="dates">31 ago a 4 oct 2026</p>
+
+          <p>Usa instrumentos de recolección de datos en tu contexto educativo de práctica.</p>
+
+          <div class="split">
+            <div>
+              <h4>Sube a tu carpeta</h4>
+              <ul class="facts">
+                <li><a href="https://drive.google.com/file/d/1UadYpPG2ze7N0f30BfzzPbo3EO_-wQaH/view?usp=sharing" target="_blank" rel="noopener">Asistencia de 12 horas</a>. Firmas a mano, no digitales.</li>
+                <li><a href="https://drive.google.com/file/d/1QtYWt1aFG6s5zncfL8In8omOCDWz2XRl/view?usp=sharing" target="_blank" rel="noopener">Diario de campo</a>. Con link público a tus evidencias y rostros de los niños difuminados.</li>
+                <li><a href="https://drive.google.com/file/d/1kKqlcI-elVP-aHtKrysHacUhy0b3h4Wd/view?usp=sharing" target="_blank" rel="noopener">Plan de trabajo</a>.</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Entrega en el campus</h4>
+              <p>Un PDF llamado <code>518024 - Phase 2 - Your Full Name.pdf</code> con el formato de la guía.</p>
+            </div>
+          </div>
+
+          <div class="links">
+            <a class="chip" href="https://campus155.unad.edu.co/ses121/mod/resource/view.php?id=4583" target="_blank" rel="noopener">Guía de la actividad</a>
+            <a class="chip" href="https://campus155.unad.edu.co/ses121/mod/assign/view.php?id=4587" target="_blank" rel="noopener">Rúbrica y entrega</a>
+          </div>
+        </article>
+
+        <!-- Fase 1 -->
+        <article class="card phase">
+          <header class="phase-head">
+            <p class="phase-num">Fase 1</p>
+            <span class="badge badge-closed">Cerrada</span>
+          </header>
+          <h3>Alignment and theoretical foundations of the qualitative research</h3>
+          <p class="dates">17 ago a 1 sep 2026</p>
+
+          <p>Cuestionario sobre las diferencias entre métodos y diseños cualitativos, cuantitativos y mixtos.</p>
+          <ul class="facts">
+            <li>8 preguntas de selección múltiple con única respuesta</li>
+            <li>60 minutos y 2 intentos (cuenta la nota más alta)</li>
+            <li>25 de 500 puntos</li>
+          </ul>
+
+          <div class="links">
+            <a class="chip" href="https://campus155.unad.edu.co/ses121/mod/quiz/view.php?id=9866" target="_blank" rel="noopener">Cuestionario en el campus</a>
+          </div>
+        </article>
+      </section>
+
+      <!-- 3. Documentación -->
+      <section class="section" id="documentacion" aria-labelledby="doc-title">
+        <h2 id="doc-title">Documentación</h2>
+
+        <ul class="card list">
+          <li>
+            <div>
+              <p class="item-name">Formato de asistencia</p>
+              <p class="muted small">F-7-6-12. Fases 2 y 3.</p>
+            </div>
+            <a href="https://drive.google.com/file/d/1UadYpPG2ze7N0f30BfzzPbo3EO_-wQaH/view?usp=sharing" target="_blank" rel="noopener">Descargar</a>
+          </li>
+          <li>
+            <div>
+              <p class="item-name">Formato de diario de campo</p>
+              <p class="muted small">Uno por fase.</p>
+            </div>
+            <a href="https://drive.google.com/file/d/1QtYWt1aFG6s5zncfL8In8omOCDWz2XRl/view?usp=sharing" target="_blank" rel="noopener">Descargar</a>
+          </li>
+          <li>
+            <div>
+              <p class="item-name">Formato de plan de trabajo</p>
+              <p class="muted small">Fase 2.</p>
+            </div>
+            <a href="https://drive.google.com/file/d/1kKqlcI-elVP-aHtKrysHacUhy0b3h4Wd/view?usp=sharing" target="_blank" rel="noopener">Descargar</a>
+          </li>
+          <li>
+            <div>
+              <p class="item-name">Carta de presentación</p>
+              <p class="muted small">Se genera en SAI (e-Letter).</p>
+            </div>
+            <a href="https://sai.unad.edu.co/e-letter/" target="_blank" rel="noopener">Abrir SAI</a>
+          </li>
+          <li>
+            <div>
+              <p class="item-name">Comunicado ARL</p>
+              <p class="muted small">Verifica que tu ARL aparezca activa.</p>
+            </div>
+            <a href="https://drive.google.com/file/d/1TEgn7M6DipCK6l5spROUFFtSS75z85fJ/view?usp=sharing" target="_blank" rel="noopener">Ver</a>
+          </li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="footer muted small">
+      Tu enlace es personal. ¿No aparece tu documento? Escríbele al tutor del curso.
+    </footer>
+  </div>
+</body>
+</html>
