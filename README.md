@@ -92,7 +92,11 @@ apuntando al mismo ítem de la base y no aparece duplicado.
 | `n/a`, `na`, `no aplica` | ⊖ No aplica (no cuenta para el total) |
 | Cualquier otro texto | ● El texto tal cual, como observación |
 
-Ese último caso es el útil: si escribes `Reenviar en PDF` en una casilla, al estudiante
+En las columnas de horas (las que dicen `12 hours` o `12 horas` en el encabezado) escribe
+el número de horas: `12` o más cuenta como **cumplido**, y un número menor se le muestra
+al estudiante como observación, por ejemplo `9 de 12 horas`.
+
+Ese último caso de la tabla es el útil: si escribes `Reenviar en PDF` en una casilla, al estudiante
 le aparece esa frase junto al ítem.
 
 > Los símbolos `.` `-` `*` se tratan como casilla vacía a propósito, porque sirven de
