@@ -1,14 +1,18 @@
 import Image from "next/image";
 import FolderLookup from "./folder-lookup";
-import FolderGuide from "./folder-guide";
-import { announcements, formatDate } from "@/content/announcements";
-import { IconArrowRight, IconExternal, IconInfo, IconMegaphone } from "./icons";
+import ActivityList from "./activity-list";
+import { documents } from "@/content/documents";
+import { IconDownload, IconExternal } from "./icons";
 
 const PRACTICE_FORM_URL = "https://forms.gle/zfNnoAdeMBbMUYiS7";
 
+// El estado de cada fase (Abierta, Cerrada) depende de la fecha:
+// la página se vuelve a generar cada hora.
+export const revalidate = 3600;
+
 export default function Home() {
   return (
-    <div className="page">
+    <div className="page page-home">
       <header className="card app-header">
         <Image
           className="app-logo"
@@ -21,7 +25,7 @@ export default function Home() {
         <div className="app-heading">
           <h1 className="app-title">Educational Research</h1>
           <p className="app-subtitle">
-            Consulta tu carpeta de prácticas, revisa tu avance y descarga los formatos del curso.
+            Consulta tu carpeta, revisa las actividades y descarga los formatos del curso.
           </p>
         </div>
         <p className="course-id" aria-label="UNAD, curso 518024">
@@ -30,93 +34,64 @@ export default function Home() {
         </p>
       </header>
 
+      <nav className="section-nav" aria-label="Secciones de la página">
+        <a href="#carpeta">Mi carpeta</a>
+        <a href="#actividades">Actividades</a>
+        <a href="#documentacion">Documentación</a>
+      </nav>
+
       <main>
-        <div className="workspace">
-          <div className="workspace-main">
-            <section className="notice" aria-labelledby="formulario-title">
-              <span className="notice-icon">
-                <IconInfo size={20} />
-              </span>
-              <div className="notice-body">
-                <h2 className="notice-title" id="formulario-title">
-                  Registra tu lugar de prácticas
-                </h2>
-                <p className="notice-text">
-                  Antes de consultar tu carpeta, completa el formulario con tu institución de
-                  práctica y los datos de contacto del docente titular que te acompañará.
-                </p>
-              </div>
-              <a
-                className="btn btn-secondary notice-action"
-                href={PRACTICE_FORM_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Abrir formulario
-                <IconExternal size={16} />
-              </a>
-            </section>
+        <section className="home-section" id="carpeta" aria-label="Consulta tu carpeta">
+          <FolderLookup
+            note={
+              <>
+                Antes de consultar, registra tu lugar de prácticas en el{" "}
+                <a href={PRACTICE_FORM_URL} target="_blank" rel="noopener noreferrer">
+                  formulario
+                </a>
+                .
+              </>
+            }
+          />
+        </section>
 
-            <FolderLookup />
-          </div>
+        <section className="home-section" id="actividades" aria-labelledby="actividades-title">
+          <h2 className="section-title" id="actividades-title">
+            Actividades
+          </h2>
+          <ActivityList />
+        </section>
 
-          <aside className="workspace-side">
-            <section className="card feed" aria-labelledby="anuncios-title">
-              <h2 className="card-title" id="anuncios-title">
-                Anuncios
-              </h2>
-
-              {announcements.length === 0 ? (
-                <p className="feed-empty">Todavía no hay anuncios publicados.</p>
-              ) : (
-                <ol className="feed-list">
-                  {announcements.map((post) => (
-                    <li className="feed-item" key={`${post.date}-${post.title}`}>
-                      <article>
-                        <div className="feed-meta">
-                          <span className="feed-avatar">
-                            <IconMegaphone size={18} />
-                          </span>
-                          <div>
-                            <p className="feed-author">Tutor del curso</p>
-                            <p className="feed-date">
-                              <time dateTime={post.date}>{formatDate(post.date)}</time>
-                            </p>
-                          </div>
-                        </div>
-                        <h3 className="feed-title">{post.title}</h3>
-                        <p className="feed-body">{post.body}</p>
-                        {post.link && (
-                          <a
-                            className="link-action"
-                            href={post.link.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            {post.link.label}
-                            <IconArrowRight size={16} />
-                          </a>
-                        )}
-                      </article>
-                    </li>
-                  ))}
-                </ol>
-              )}
-            </section>
-          </aside>
-        </div>
-
-        <FolderGuide />
+        <section className="home-section" id="documentacion" aria-labelledby="documentacion-title">
+          <h2 className="section-title" id="documentacion-title">
+            Documentación
+          </h2>
+          <ul className="card doc-list">
+            {documents.map((doc) => (
+              <li className="doc-row" key={doc.name}>
+                <div>
+                  <p className="doc-name">{doc.name}</p>
+                  <p className="doc-description">{doc.description}</p>
+                </div>
+                <a
+                  className="link-action"
+                  href={doc.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {doc.action}
+                  {doc.icon === "download" ? <IconDownload size={16} /> : <IconExternal size={16} />}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
       </main>
 
       <footer className="app-footer">
         <p>
-          Cada enlace es personal y se entrega únicamente al documento que le corresponde. No
-          compartas tu carpeta con otras personas.
-        </p>
-        <p>
-          ¿Tu documento no aparece o el enlace no abre? Escríbele al tutor del curso para que lo
-          revise.
+          Tu enlace es personal: no compartas tu carpeta. ¿Tu documento no aparece o el enlace no
+          abre? Escríbele al tutor del curso.
         </p>
       </footer>
     </div>

@@ -166,22 +166,21 @@ o con cédula repetida) y cuánto del presupuesto de 64 KB llevas usado.
 
 ---
 
-## 5. Publicar anuncios
+## 5. Actividades y documentación
 
-Edita [content/announcements.ts](content/announcements.ts) y agrega un objeto **al
-principio** de la lista:
+La página tiene tres secciones: **Consulta tu carpeta**, **Actividades** (de la fase
+más reciente a la más vieja) y **Documentación**. Su contenido vive en `content/`:
 
-```ts
-{
-  date: "2026-09-22",
-  title: "Entrega de la Fase 3",
-  body: "Recuerden subir el documento en PDF antes del domingo a medianoche.",
-  link: { label: "Ver la rúbrica", href: "https://..." },
-}
-```
+- [content/activities.ts](content/activities.ts): una entrada por fase, con fechas,
+  enlaces, paso a paso y qué se entrega en el campus, en la carpeta y en el foro. Para
+  una fase nueva, agrega un objeto **al principio** de la lista. El estado (Próximamente,
+  Abierta, Cerrada) sale solo de `opens` y `closes`; la página se regenera cada hora.
+- [content/documents.ts](content/documents.ts): formatos y enlaces que sirven en todas
+  las fases.
 
-`link` es opcional. Todo lo que pongas ahí es **público**: lo ve cualquiera que abra la
-página. Los enlaces privados nunca van aquí.
+Todo lo que pongas ahí es **público**: lo ve cualquiera que abra la página. Los enlaces
+privados nunca van aquí. Para publicar el cambio, haz commit y `git push`: Vercel
+despliega solo.
 
 ---
 
@@ -241,7 +240,7 @@ npx vercel link
 npm run publish
 ```
 
-### Con GitHub (recomendado, para ir publicando anuncios con `git push`)
+### Con GitHub (recomendado, para publicar cambios con `git push`)
 
 ```bash
 git init && git add -A && git commit -m "Página del curso Educational Research"
@@ -272,16 +271,18 @@ npm run build
 
 ```
 app/
-  page.tsx              Página principal (servidor)
+  page.tsx              Página principal por secciones (servidor)
+  activity-list.tsx     Tarjetas de las actividades
   layout.tsx            Metadatos, noindex
-  folder-lookup.tsx     Formulario y checklist (cliente) — solo habla con la API
+  folder-lookup.tsx     Formulario y checklist (cliente): solo habla con la API
   globals.css           Estilos, modo claro y oscuro
   api/lookup/route.ts   La búsqueda. Único punto que toca los datos
 lib/
   students.ts           Carga, decodifica las marcas y consulta — server-only
   rate-limit.ts         Límite por IP
 content/
-  announcements.ts      Anuncios del curso  ← edita esto para publicar
+  activities.ts         Actividades por fase  ← edita esto para publicar
+  documents.ts          Formatos y enlaces del curso
 scripts/
   import-excel.mjs      Excel → data/students.json (sin dependencias)
   publish.mjs           import + variable en Vercel + deploy

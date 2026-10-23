@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent, type ReactNode } from "react";
 import {
   IconAlert,
   IconCheck,
@@ -57,7 +57,8 @@ const PHASE_NAMES: Record<string, string> = {
 };
 const phaseName = (name: string) => PHASE_NAMES[name.trim().toLowerCase()] ?? name;
 
-export default function FolderLookup() {
+/** `note`: texto corto debajo del campo, por ejemplo el aviso del formulario. */
+export default function FolderLookup({ note }: { note?: ReactNode }) {
   const [id, setId] = useState("");
   const [status, setStatus] = useState<Status>("idle");
   const [result, setResult] = useState<Result | null>(null);
@@ -195,6 +196,7 @@ export default function FolderLookup() {
           <p className="field-hint" id="documento-ayuda">
             Entre 6 y 12 dígitos. Solo se muestra la carpeta que corresponde a ese documento.
           </p>
+          {note && <p className="lookup-note">{note}</p>}
         </form>
 
         <div aria-live="polite">

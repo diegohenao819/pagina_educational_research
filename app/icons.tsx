@@ -90,19 +90,6 @@ export const IconUpload = (p: IconProps) => (
   </Svg>
 );
 
-export const IconMegaphone = (p: IconProps) => (
-  <Svg {...p}>
-    <path d="M3.75 8.6v2.8c0 .55.45 1 1 1h1.6l5.9 3.4V4.2L6.35 7.6h-1.6c-.55 0-1 .45-1 1Z" />
-    <path d="M15.25 7.4a3.6 3.6 0 0 1 0 5.2" />
-  </Svg>
-);
-
-export const IconArrowRight = (p: IconProps) => (
-  <Svg {...p}>
-    <path d="M4.5 10h11M11 5.5l4.5 4.5-4.5 4.5" />
-  </Svg>
-);
-
 export const IconMessage = (p: IconProps) => (
   <Svg {...p}>
     <path d="M16 11.9a1.6 1.6 0 0 1-1.6 1.6H8.2l-3.7 3V5.6A1.6 1.6 0 0 1 6.1 4h8.3A1.6 1.6 0 0 1 16 5.6Z" />

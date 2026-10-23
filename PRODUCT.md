@@ -10,11 +10,11 @@ web
 
 Estudiantes del curso Educational Research (código 518024) de la UNAD, Universidad Nacional Abierta y a Distancia (Colombia). Muchos entran desde el celular. Llegan con una tarea concreta: encontrar su carpeta personal de prácticas, ver su avance por fases y saber qué documentos subir.
 
-Audiencia secundaria: el tutor del curso, que mantiene los datos y publica anuncios.
+Audiencia secundaria: el tutor del curso, que mantiene los datos y publica las actividades.
 
 ## Product Purpose
 
-Una página del curso donde cada estudiante escribe su número de documento y recibe únicamente el enlace a su carpeta de SharePoint, junto con su avance por fases. La página también explica qué documento va en cada subcarpeta, enlaza los formatos oficiales y reúne los anuncios del tutor.
+Una página del curso donde cada estudiante escribe su número de documento y recibe únicamente el enlace a su carpeta de SharePoint, junto con su avance por fases. La página también describe cada actividad del curso (qué se hace, qué se entrega y dónde, con sus plantillas) y enlaza los formatos oficiales. Va en tres secciones: consulta de carpeta, actividades (de la más reciente a la más vieja) y documentación.
 
 Éxito: el estudiante encuentra su carpeta sin escribirle al tutor, entiende qué le falta y sube los documentos correctos.
 

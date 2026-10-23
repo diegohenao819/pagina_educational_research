@@ -32,11 +32,6 @@ colors:
   danger: "#b42318"
   danger-soft: "#fef3f2"
   danger-border: "#f9cdc8"
-  folder-back: "#d99a28"
-  folder-front: "#f2c056"
-  folder-back-root: "#9c3b0a"
-  folder-front-root: "#cf5a1c"
-  ink: "#2f55a4"
 typography:
   display:
     fontFamily: "Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif"
@@ -192,11 +187,11 @@ components:
 
 **Creative North Star: "El tablero del curso"**
 
-A course tool, not a landing page. The world borrows the canon the tutor chose, Facebook and Google Classroom: a cool gray canvas, quiet white cards with 12px corners and a hairline border, Inter throughout, and near-black and slate text. The folder lookup is the obvious task. The form notice, the announcements feed and the folder guide sit around it in cards that do not compete with it.
+A course tool, not a landing page. The world borrows the canon the tutor chose, Facebook and Google Classroom: a cool gray canvas, quiet white cards with 12px corners and a hairline border, Inter throughout, and near-black and slate text. The folder lookup is the obvious task. The page reads top to bottom in three sections: the lookup, the activities (newest phase first) and the documentation list. Nothing competes with the lookup.
 
 The institutional UNAD orange is the only voice with volume. It marks the primary action, active and focus states, and the small "Requisito" badges, and nothing else. Status comes in pale fields: green for a found folder and completed items, amber for observations and the not-found state, red for errors. Density is comfortable and practical, sized for phones from 360 to 430px first.
 
-The signature is the folder map: an inline SVG of the student's folder whose subfolders assemble once when it scrolls into view and open slightly when pointed at. Small inline illustrations (a signed attendance sheet, an hours chart, a blurred photo, a public link, an active ARL pill) explain each document rule beside the rule. The world is light only: `color-scheme: light`, with no dark theme.
+The page has no illustrations: it is plain cards, clear headings and links, so the student finds the folder and the next deliverable fast. The world is light only: `color-scheme: light`, with no dark theme.
 
 **Key Characteristics:**
 - Cool gray canvas (#f0f2f5) under white cards with 1px borders and near-invisible shadows.
@@ -211,7 +206,7 @@ The signature is the folder map: an inline SVG of the student's folder whose sub
 A neutral Facebook-style gray system with one warm institutional accent and three pale status families.
 
 ### Primary
-- **UNAD Burnt Orange** (accent): primary buttons, the progress bar fill, links, focus outlines and the focus ring, the input caret, active map labels. Darkens to **Pressed Ember** on hover and **Deep Ember** on press.
+- **UNAD Burnt Orange** (accent): primary buttons, the progress bar fill, links, focus outlines and the focus ring, the input caret. Darkens to **Pressed Ember** on hover and **Deep Ember** on press.
 - **Orange Wash** (accent-soft) and **Orange Blush** (accent-soft-strong): the form notice background, the course-code segment, the feed avatar, rule badges, text selection, and the brief highlight on a phase card reached from the map.
 - **Orange Ink** (accent-text) and **Clay Brown** (accent-muted-text): accent-colored text on the orange washes, where the full accent would be too loud.
 
@@ -221,8 +216,6 @@ A neutral Facebook-style gray system with one warm institutional accent and thre
 - **Alert Red** (danger, danger-soft, danger-border): the error alert only.
 
 ### Tertiary
-- **Manila Folder** (folder-back, folder-front) and **Root Folder Orange** (folder-back-root, folder-front-root): the folder glyphs in the map and on phase cards. The root folder takes the orange pair; subfolders take manila.
-- **Signature Blue** (ink): pen strokes in the attendance illustration only.
 
 ### Neutral
 - **Classroom Gray** (canvas, surface-sunken): the page background, count pills, neutral badges, the map shell.
@@ -264,11 +257,9 @@ A neutral Facebook-style gray system with one warm institutional accent and thre
 
 ## Layout
 
-A centered page up to 1080px wide, padded 16px on phones and 24px from 768px, with a 48 to 64px bottom margin. Sections stack in a grid with 16px gaps, widening to 32px from 960px.
+A centered page up to 760px wide (the tutor panel keeps 1080px), padded 16px on phones and 24px from 768px, with a 48 to 64px bottom margin. Sections stack in one column with 16px gaps, widening to 32px from 960px.
 
-From 960px the workspace splits into a flexible content column and a 360px rail (the announcements), with a 24px gap and a sticky rail 24px from the top. The folder guide mirrors it: the 360px rail on the left holds the intro and map (sticky when the viewport is at least 780px tall), and phase cards fill the right. Between 640 and 959px the guide intro puts the map beside its text. Below that, everything is one column.
-
-The header is a card: the logo (76px, 92px from 720px), a title block set off by a left hairline, and the course-code pill on the right. The lookup puts the input and button in one row from 560px. Document rows put the action button on the right from 560px, and notes with an illustration get a 148px side column.
+The header is a card: the logo (76px, 92px from 720px), a title block set off by a left hairline, and the course-code pill on the right. The lookup puts the input and button in one row from 560px. Documentation rows keep the action link on the right at every width.
 
 Spacing works on a 4px base, mostly in steps of 8, 12, 16, 20, 24 and 32. Card padding is 20px on phones and 24px from 640px. Touch targets are at least 40px on coarse pointers.
 
@@ -296,13 +287,14 @@ Icons sit on one 20 by 20 grid with a single 1.7 round stroke in `currentColor`,
 Clear and practical, with three levels of emphasis.
 - **Shape:** gently rounded (10px), 40px tall by default, 48px large, 36px small (40px on touch).
 - **Primary:** orange with white text. It darkens on hover and press. Disabled is a gray fill. While a search runs, it stays orange at 88% opacity with a spinner and a progress cursor.
-- **Secondary:** white with a Rule Gray border; hover turns it Mist with a Hover Gray border. Used for document downloads and external links, with a 16px icon after the label. In the form notice it takes the orange border and orange text.
+- **Secondary:** white with a Rule Gray border; hover turns it Mist with a Hover Gray border. Used for document downloads and external links, with a 16px icon after the label.
 - **Tertiary:** transparent with slate text; hover gives a gray fill.
 - **Focus:** 2px orange outline, offset 2px.
 - **Transitions:** 0.15s on color, border and shadow.
 
 ### Chips
-- **Badges:** pill, 12px semibold. The rule badge (Requisito) is orange blush; the tip badge (Recomendación) is pale green; the neutral badge is gray. The legend in the guide explains each one.
+- **Badges:** pill, 12px semibold. Activity status: Abierta is pale green, Próximamente is orange blush, Cerrada is gray. The word always carries the meaning.
+- **Link chips:** 40px pills with a hairline border and orange text, plus an external-link icon. The main resource of a phase (its template) is a solid orange chip.
 - **Count pill:** gray pill, 13px semibold, tabular, right-aligned in phase-card heads.
 - **Course-code pill:** a bordered pill split in two segments, with the course number on an orange wash.
 
@@ -319,27 +311,24 @@ Clear and practical, with three levels of emphasis.
 - **Hint:** 13px slate text below. Label above in 14px semibold.
 
 ### Navigation
-There is no nav bar. The folder map is the navigation for the guide: each subfolder row links to its phase card, highlighting its name in orange and opening the folder on hover or focus. The target card briefly takes an orange border and halo (2.6s) on arrival.
+Under the header, three pill links jump to the sections (Mi carpeta, Actividades, Documentación). They fit on one line at 375px and scroll sideways if they ever do not.
 
 ### Lookup Results
 - **Alerts:** pale amber (not found) or pale red (error) panels with a 1px border, a 10px radius, an icon and a 16px semibold title. They arrive with a 6px rise and fade.
 - **Found panel:** pale green with a 12px radius, a green check icon, the title in green, the name in bold, the actions in a wrapping row (primary full-width on phones), and a white tutor note inside.
 - **Progress:** a large tabular percentage, an 8px pill bar that grows from the left in 0.8s (green when complete), and phase checklists in two columns from 600px. Checklist marks: green disc with a tick (done), empty circle with a dash (not applicable), amber circle with an exclamation (observation, with an amber note below).
 
-### Form Notice
-A pale orange panel with an info icon, a title, muted brown text and a secondary action. The action sits below on phones and on the right from 640px.
+### Activity Cards
+One white card per phase, newest first. The open phase gets an orange border. The head shows the phase in small orange caps and the status badge; then the title, the dates, a one-line summary, the link chips, an optional numbered "Paso a paso", and "Qué entregas y dónde": bordered boxes (Campus, Tu carpeta, Foro) that sit side by side when there is room. File names use a monospace chip on an orange wash. Reminders close the card in a pale orange panel.
 
-### Announcements Feed
-Items split by hairlines: an orange-wash avatar with a megaphone, the author and a tabular date, then a 16px title, 15px body and an optional arrow link.
-
-### Folder Map and Guide Illustrations (signature)
-Inline SVG in the system palette, framed in Mist (10px radius, 148px wide, 320px when wide). Text inside an SVG never drops below 12px. Motion follows one grammar: nothing animates by default, and the HTML arrives in its final state. A script arms off-screen illustrations (paused on the first frame) and plays them once when they enter the viewport. The map shell opens, rows emerge in sequence, sheets drop in, hour bars rise, the signature draws itself, and faces blur. The ARL pulse repeats twice at most. The easing is `cubic-bezier(0.16, 1, 0.3, 1)`. With reduced motion, everything becomes an opacity fade in the same order, and the pulse and scale effects are removed.
+### Practice Form Notice
+One 13px line under the lookup hint, with the form as an orange link.
 
 ## Do's and Don'ts
 
 ### Do:
 - **Do** keep the canvas gray (#f0f2f5) and put content on white 12px cards with a 1px #e4e6eb border.
-- **Do** reserve orange (#b5450c) for primary actions, active and focus states, links and rule badges.
+- **Do** reserve orange (#b5450c) for primary actions, active and focus states, links and link chips.
 - **Do** show states as pale fields with a matching border, plus a shape or icon, never by color alone.
 - **Do** use tabular figures for every count, percentage, ID, hour and date.
 - **Do** keep controls at least 40px tall on touch and the lookup input at 48px.
