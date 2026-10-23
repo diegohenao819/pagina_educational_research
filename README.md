@@ -72,9 +72,16 @@ reordenarlas, agregar ítems nuevos o renombrarlos sin tocar código.
 | `Group` | Grupo, CIPAS | Se muestra como etiqueta |
 | `Comments` | Comentarios, Observaciones | **El estudiante lo lee** como nota del tutor |
 
-**Cualquier otra columna con encabezado se vuelve un ítem de seguimiento.** La fila de
-arriba de los encabezados (la banda combinada: `Carpeta Administrativa`, `Fase 2`, …)
-define el grupo; cada ítem hereda la etiqueta que tenga a su izquierda.
+**Solo las columnas de carpeta se vuelven ítems de seguimiento.** La fila de arriba de
+los encabezados (la banda combinada) define el grupo, y cada ítem hereda la etiqueta que
+tenga a su izquierda. Solo cuentan las bandas que empiezan por `Carpeta`
+(`Carpeta: Documentos administrativos`, `Carpeta: Fase 2`, …); el prefijo se quita al
+mostrarlas. Lo demás del Excel (foros, rúbricas, puntajes, comentarios de calificación)
+se ignora: puedes tenerlo en la misma hoja sin que llegue a la página.
+
+Si renombras un encabezado que ya existía, agrégalo a `ITEM_ALIASES` (o la banda a
+`PHASE_ALIASES`) en [lib/parse-workbook.mjs](lib/parse-workbook.mjs). Así sigue
+apuntando al mismo ítem de la base y no aparece duplicado.
 
 ### Qué escribir en las casillas
 
